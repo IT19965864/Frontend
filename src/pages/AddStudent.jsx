@@ -2,12 +2,16 @@ import React from 'react';
 import { useFormik } from 'formik';
 import Navbar from '../components/StuNavBar';
 import '../styles/student.css';
-import { Button, Checkbox, Form } from 'semantic-ui-react'
-
+import { Button, Select, Form } from 'semantic-ui-react'
 import * as Yup from 'yup';
+import studentService from '../adapters/studentService';
+import axios, { Axios } from 'axios';
 
-
-
+const options = [
+  { key: 'm', text: 'Male', value: 'male' },
+  { key: 'f', text: 'Female', value: 'female' },
+  { key: 'o', text: 'Other', value: 'other' },
+]
 
 function AddStudent() {
 
@@ -15,21 +19,54 @@ function AddStudent() {
     initialValues:{
       stuName:'',
       nic:'',
+      gender:'male',
+      address:'',
       email:'',
       mobile:'',
-      grade:''
+     
   
     },
   
     validationSchema:Yup.object({
       stuName:Yup.string()
-              .min(3,"?")
-              .max(30,"Input 30 characters or below")
-              .matches(/^[A-Za-z ]*$/,"Please Enter Valid name")
-              .required("Required")
-    })
+        .min(3,"Too Small")
+        .max(30,"Input 30 characters or below")
+        .matches(/^[A-Za-z ]*$/,"Please Enter Valid name")
+        .required("*Required"),
+      nic: Yup.string()
+        .min(9)
+        .max(12)
+        .required('*Required'),
+
+      gender:Yup.string(),
+
+      address: Yup.string()
+        .min(10, "Input must be at least 10 characters")
+        .max(30, "Input 15 characters or below")
+        .required('*Required'),
+      email:Yup.string()
+        .matches(/^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+\.)+[A-Za-z]+$/,"Please Enter Valid email address")
+        .required('*Required'),
+      mobile: Yup.string()
+        .matches(/^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/, 'Phone number is not valid')
+        .min(10)
+        .max(10)
+        .required('*Required'),
+            
+
+    }),
+      onSubmit:values=>{
+       studentService.insertStudents(values);
+      //  axios.post("http://localhost:8070/student/add",values);
+      console.log(values);
+
+      }
+
+    
   
   })
+
+  
   
   return (
     <>
@@ -42,6 +79,8 @@ function AddStudent() {
             <label>Student Name</label>
             <input
              placeholder='Student Name'
+             id='stuName'
+             name='stuName'
              type="text"
              onChange={formik.handleChange}
              onBlur={formik.handleBlur}
@@ -51,36 +90,92 @@ function AddStudent() {
               <div style={{color: "red"}}>{formik.errors.stuName}</div>
             ) : null}
 
-            <br/>
+            
           </Form.Field>
          
           <Form.Field>
             <label>NIC</label>
             <input placeholder='NIC' 
+            id='nic'
+            name='nic'
             type="text"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.nic}
            
-            />
+             />
+            {formik.touched.nic && formik.errors.nic ? (
+              <div style={{color: "red"}}>{formik.errors.nic}</div>
+            ) : null}
+
+  
           </Form.Field>
-          <Form.Field>
-            <label>Email</label>
-            <input placeholder='Email' 
+          <Form.Field
+            control={Select}
+              label='Gender'
+              options={options}
+              placeholder='Gender'
+              id='gender'
+              name='gender'
+              onChange={formik.handleChange}
+              
+              
+             />
+           
+         
+           
+            <Form.Field>
+            <label>Address</label>
+            <input placeholder='Address' 
+            id='address'
+            name='address'
             type="text"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.address}
+
            
-            />
-          </Form.Field>
+             />
+              {formik.touched.address && formik.errors.address ? (
+              <div style={{color: "red"}}>{formik.errors.address}</div>
+            ) : null}
+            </Form.Field>
+            <Form.Field>
+              <label>Email</label>
+              <input placeholder='Email' 
+              id='email'
+              name='email'
+              type="text"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.email}
+            
+              />
+              {formik.touched.email && formik.errors.email ? (
+                <div style={{color: "red"}}>{formik.errors.email}</div>
+              ) : null}
+            </Form.Field>
           <Form.Field>
             <label>Mobile</label>
             <input placeholder='Mobile'
-            type="number" 
+            id='mobile'
+            name='mobile'
+            type="text" 
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.mobile}
            
             />
+            {formik.touched.mobile && formik.errors.mobile ? (
+                <div style={{color: "red"}}>{formik.errors.mobile}</div>
+              ) : null}
           </Form.Field>
-          <Form.Field>
+          {/* <Form.Field>
             <label>Grade</label>
             <input placeholder='Grade'
             type="text"
            />
-          </Form.Field>
+          </Form.Field> */}
          
           <Button primary type='submit' size='small'>Submit</Button>
           <Button secondary type='clear' size='small'>Reset</Button>
