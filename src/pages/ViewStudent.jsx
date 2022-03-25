@@ -1,5 +1,6 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import { Table,Button,Icon } from 'semantic-ui-react'
+import studentService from '../adapters/studentService';
 import Navbar from '../components/StuNavBar'
 import '../styles/student.css';
 
@@ -9,6 +10,19 @@ const colors = [
  
 ]
 function ViewStudent() {
+  
+    const [students,setStudents]=useState([]);
+
+    useEffect(()=>{
+      studentService.getAllStudents().then((res)=>{
+        setStudents(res.data);
+        console.log(res.data);
+      }).catch((err)=>{
+        alert(err.message);
+      })
+    },[])
+
+    
   return (
     <div>
        <Navbar/>
@@ -28,15 +42,8 @@ function ViewStudent() {
           </Table.Header>
 
           <Table.Body>
-            <Table.Row>
-              <Table.Cell>John Lilki</Table.Cell>
-              <Table.Cell>199835712658</Table.Cell>
-              <Table.Cell>Male</Table.Cell>
-              <Table.Cell>no 24,malabe</Table.Cell>
-              <Table.Cell>jhlilk22@yahoo.com</Table.Cell>
-              <Table.Cell>0767968545</Table.Cell>
-              <Table.Cell><Button secondary type='viewmore' size='small'>View More</Button></Table.Cell>
-            </Table.Row>
+            
+            
             <Table.Row>
               <Table.Cell>Jamie Harington</Table.Cell>
               <Table.Cell>199835712696</Table.Cell>
