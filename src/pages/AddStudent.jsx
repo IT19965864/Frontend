@@ -2,24 +2,26 @@ import React from 'react';
 import { useFormik } from 'formik';
 import Navbar from '../components/StuNavBar';
 import '../styles/student.css';
-import { Button, Select, Form } from 'semantic-ui-react'
+import { Button, Select, Form ,Dropdown} from 'semantic-ui-react'
 import * as Yup from 'yup';
 import studentService from '../adapters/studentService';
-import axios, { Axios } from 'axios';
+import {useNavigate} from 'react-router-dom';
 
 const options = [
   { key: 'm', text: 'Male', value: 'male' },
   { key: 'f', text: 'Female', value: 'female' },
-  { key: 'o', text: 'Other', value: 'other' },
+ 
 ]
 
 function AddStudent() {
+
+ let navigate=useNavigate();
 
   const formik=useFormik({
     initialValues:{
       stuName:'',
       nic:'',
-      gender:'male',
+      gender:'',
       address:'',
       email:'',
       mobile:'',
@@ -37,8 +39,8 @@ function AddStudent() {
         .min(9)
         .max(12)
         .required('*Required'),
-
-      gender:Yup.string(),
+      gender:Yup.string()
+        .required('*Required'),
 
       address: Yup.string()
         .min(10, "Input must be at least 10 characters")
@@ -56,7 +58,9 @@ function AddStudent() {
 
     }),
       onSubmit:values=>{
-       studentService.insertStudents(values);
+       studentService.insertStudents(values).then(
+         navigate('/viewStudent')
+       );
       //  axios.post("http://localhost:8070/student/add",values);
       console.log(values);
 
@@ -110,20 +114,25 @@ function AddStudent() {
 
   
           </Form.Field>
-          <Form.Field
-            control={Select}
-              label='Gender'
+          <Form.Field>
+          <label>Gender</label>
+            <Dropdown
+              selection
               options={options}
               placeholder='Gender'
               id='gender'
               name='gender'
-              onChange={formik.handleChange}
+              onChange={(_, { value }) => formik.setFieldValue("gender", value)}
+              value={formik.values.gender}
               
-              
-             />
-           
-         
-           
+            />
+             {formik.touched.gender && formik.errors.gender ? (
+              <div style={{color: "red"}}>{formik.errors.gender}</div>
+            ) : null}
+
+
+          </Form.Field>
+      
             <Form.Field>
             <label>Address</label>
             <input placeholder='Address' 
@@ -155,21 +164,21 @@ function AddStudent() {
                 <div style={{color: "red"}}>{formik.errors.email}</div>
               ) : null}
             </Form.Field>
-          <Form.Field>
-            <label>Mobile</label>
-            <input placeholder='Mobile'
-            id='mobile'
-            name='mobile'
-            type="text" 
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.mobile}
-           
-            />
-            {formik.touched.mobile && formik.errors.mobile ? (
-                <div style={{color: "red"}}>{formik.errors.mobile}</div>
-              ) : null}
-          </Form.Field>
+            <Form.Field>
+              <label>Mobile</label>
+              <input placeholder='Mobile'
+              id='mobile'
+              name='mobile'
+              type="text" 
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.mobile}
+            
+              />
+              {formik.touched.mobile && formik.errors.mobile ? (
+                  <div style={{color: "red"}}>{formik.errors.mobile}</div>
+                ) : null}
+            </Form.Field>
           {/* <Form.Field>
             <label>Grade</label>
             <input placeholder='Grade'
@@ -178,7 +187,7 @@ function AddStudent() {
           </Form.Field> */}
          
           <Button primary type='submit' size='small'>Submit</Button>
-          <Button secondary type='clear' size='small'>Reset</Button>
+          <Button secondary type='reset' size='small'>Reset</Button>
         </Form>
         </div>
         
