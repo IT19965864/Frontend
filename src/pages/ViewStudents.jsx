@@ -36,7 +36,7 @@ export default class ViewStudents extends Component{
             20)});
     }
     viewSingleStudent(id){
-        useNavigate(`/singleStudent/${id}`);
+        this.history.push(`/singleStudent/${id}`);
     }
 
     render(){
