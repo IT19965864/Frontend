@@ -3,7 +3,7 @@ import React, { Suspense, lazy } from 'react';
 import{BrowserRouter as Router,Route, Routes} from 'react-router-dom'
 const StuAdminProfile = lazy(() => import('./pages/StuAdminProfile'));
 const AddStudent = lazy(() => import('./pages/AddStudent'));
-const ViewStudent = lazy(() => import('./pages/ViewStudent'));
+const SingleStudent = lazy(() => import('./pages/SingleStudent'));
 const ViewStudents = lazy(() => import('./pages/ViewStudents'));
 const App = () => (
   <Router>
@@ -11,8 +11,9 @@ const App = () => (
       <Routes>
         <Route path="/stuAdminProfile" element={< StuAdminProfile />} />
         <Route path="/addStudent" element={<AddStudent />} />
-        <Route path="/viewStudent" element={<ViewStudent />} />
-        <Route path="/resetPassword" element={<ViewStudents />} />
+        <Route path="/viewStudent" element={<ViewStudents />} />
+        <Route path="/singleStudent" element={<SingleStudent />} />
+       
       
       </Routes>
     </Suspense>
