@@ -1,14 +1,15 @@
 import { Component } from "react";
 import studentService from "../adapters/studentService";
 import Navbar from "../components/StuNavBar";
-import { Table,Button,Icon } from 'semantic-ui-react'
+import { Table,Button,Icon ,Search} from 'semantic-ui-react'
 import '../styles/student.css';
-
+import {useNavigate} from 'react-router-dom';
 const colors = [
   
     'blue',
    
   ]
+
 export default class ViewStudents extends Component{
 
     constructor(props){
@@ -16,24 +17,52 @@ export default class ViewStudents extends Component{
 
         this.state={
             students:[],
+            searchId:''
         }
+
+        this.viewSingleStudent=this.viewSingleStudent.bind(this);
     }
 
-
+    
     componentDidMount(){
        studentService.getAllStudents().then((res)=>{
             this.setState({students:res.data});
-            //console.log(students);
+            console.log(res.data);
 
         });
     }
-
+    searchMenuId(event){
+        this.setState({ searchId: event.target.value.substr(0,
+            20)});
+    }
+    viewSingleStudent(id){
+        useNavigate(`/singleStudent/${id}`);
+    }
 
     render(){
+        let filterEmpId = this.state. students.filter((
+            student)=>{
+                return student.stuName.indexOf(this.state.
+                    searchId)!==-1;
+            }
+        );
 
         return(
             <div>
                 <Navbar/>
+                <div id='student-search'>
+                    <Search 
+                        //loading={loading}
+                        placeholder='Search...'
+                        // onResultSelect={(e, data) =>
+                        //     dispatch({ type: 'UPDATE_SELECTION', selection: data.result.title })
+                        // }
+                         onSearchChange={this.searchMenuId.bind(this)}
+                        // results={results}
+                         value={this.state.searchId}
+                    />
+                </div>
+               
                 <div className='student'>
                 {colors.map((color) => (
                     <Table striped id='student-table'color={color} key={color}>
@@ -52,7 +81,7 @@ export default class ViewStudents extends Component{
                     <Table.Body>
                     {
 
-                        this.state.students.map(
+                        filterEmpId.map(
                         student=>
                             <Table.Row key={student.nic}>
                                 <Table.Cell>{student.stuName}</Table.Cell>
@@ -61,7 +90,7 @@ export default class ViewStudents extends Component{
                                 <Table.Cell>{student.address}</Table.Cell>
                                 <Table.Cell>{student.email}</Table.Cell>
                                 <Table.Cell>{student.mobile}</Table.Cell>
-                                <Table.Cell><Button secondary type='viewmore' size='small'>View More</Button></Table.Cell>
+                                <Table.Cell><Button secondary type='viewmore' size='small' onClick={()=>this.viewSingleStudent(student._id)}>View More</Button></Table.Cell>
                             </Table.Row>
                         )
                     }
