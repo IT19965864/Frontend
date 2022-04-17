@@ -1,19 +1,23 @@
 import "./App.css";
 import React, { Suspense, lazy } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 const StuAdminProfile = lazy(() => import("./pages/StuAdminProfile"));
 const AddStudent = lazy(() => import("./pages/AddStudent"));
 const ViewStudent = lazy(() => import("./pages/ViewStudent"));
 const AddTeacher = lazy(() => import("./pages/AddTeacher"));
+const ViewTeacher = lazy(() => import("./pages/ViewTeacher"));
+const ViewSingleTeacher = lazy(() => import("./pages/ViewSingleTeacher"));
 const App = () => (
   <Router>
     <Suspense fallback={<div>Loading...</div>}>
-      <Routes>
-        <Route path="/stuAdminProfile" element={<StuAdminProfile />} />
-        <Route path="/addStudent" element={<AddStudent />} />
-        <Route path="/viewStudent" element={<ViewStudent />} />
-        <Route path="/addTeacher" element={<AddTeacher />} />
-      </Routes>
+      <Switch>
+        <Route path="/stuAdminProfile" component={StuAdminProfile} />
+        <Route path="/addStudent" component={AddStudent} />
+        <Route path="/viewStudent" component={ViewStudent} />
+        <Route path="/addTeacher" component={AddTeacher} />
+        <Route path="/singleTeacher/:id" component={ViewSingleTeacher} />
+        <Route path="/" component={ViewTeacher} />
+      </Switch>
     </Suspense>
   </Router>
 );
