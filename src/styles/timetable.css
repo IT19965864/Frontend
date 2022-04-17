@@ -1,4 +1,4 @@
-#student-form {
+#timetable-form {
   width: 300px;
   margin-top: 100px;
   margin-left: 550px;
@@ -6,27 +6,27 @@
   border-radius: 10px;
   padding: 10px;
 }
-#student-form-label {
+#timetable-form-label {
   margin-left: 70px;
   text-align: center;
   font-size: x-large;
 }
-.student-form {
+.timetable-form {
   align-items: center;
 }
 
-#student-button {
+#timetable-button {
   margin-right: 20px;
 }
 
-#student-table {
+#timetable-table {
   width: 900px;
   margin-top: 50px;
   margin-left: 350px;
   border-radius: 10px;
   padding: 1px;
 }
-#student-search {
+#timetable-search {
   margin-top: 40px;
   margin-left: 1040px;
 }

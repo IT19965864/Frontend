@@ -1,6 +1,6 @@
 import { Component } from "react";
 const colors = ["blue"];
-export default class SingleStudent extends Component {
+export default class timetableView extends Component {
   constructor(props) {
     super(props);
   }
