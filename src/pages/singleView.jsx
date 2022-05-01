@@ -15,7 +15,8 @@ class singaleView extends Component {
 
   componentDidMount() {
     timetableService.getTimetableById(this.state.id).then((res) => {
-      this.setState({ timetable: res.data.user });
+      console.log(res.data);
+      this.setState({ timetable: res.data });
     });
   }
 

@@ -25,7 +25,10 @@ const App = () => (
         <Route path="/viewTimetable" component={ViewTimetable} />
         <Route path="/addTimetable" component={AddTimetabl} />
         {/* <Route path="/viewOneTimetable" component={ViewOneTimetable} /> */}
-        <Route path="/singleViewTimetable" component={SingleViewTimetable} />
+        <Route
+          path="/singleViewTimetable/:id"
+          component={SingleViewTimetable}
+        />
       </Switch>
     </Suspense>
   </Router>

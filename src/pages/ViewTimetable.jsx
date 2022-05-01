@@ -29,7 +29,7 @@ class ViewTimetable extends Component {
   }
   viewSingleStudent(id) {
     // this.history.push(`/singleStudent/${id}`);
-    window.location = `/singleStudent/${id}`;
+    window.location = `/singleViewTimetable/${id}`;
   }
 
   render() {
