@@ -1,12 +1,12 @@
-import { Component } from "react";
+import React, { Component } from "react";
 import timetableService from "../adapters/timetableService";
 import Navbar from "../components/TimetableNav";
 import { Table, Button, Icon, Search } from "semantic-ui-react";
 import "../styles/student.css";
-import { useNavigate } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 const colors = ["blue"];
 
-export default class ViewTimetable extends Component {
+class ViewTimetable extends Component {
   constructor(props) {
     super(props);
 
@@ -113,3 +113,4 @@ export default class ViewTimetable extends Component {
     );
   }
 }
+export default withRouter(ViewTimetable);

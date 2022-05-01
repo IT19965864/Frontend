@@ -10,11 +10,11 @@ import SoloAlert from "soloalert";
 
 const options = [
   { key: "s", text: "Sinhala", value: "Sinhala" },
-  { key: "e", text: "English", value: "english" },
-  { key: "b", text: "Biology", value: "biology" },
-  { key: "m", text: "Mathematics", value: "mathematics" },
-  { key: "h", text: "History", value: "history" },
-  { key: "p", text: "Physics", value: "physics" },
+  { key: "e", text: "English", value: "English" },
+  { key: "b", text: "Biology", value: "Biology" },
+  { key: "m", text: "Mathematics", value: "Mathematics" },
+  { key: "h", text: "History", value: "History" },
+  { key: "p", text: "Physics", value: "Physics" },
 ];
 
 const options1 = [
@@ -29,16 +29,16 @@ const options1 = [
 ];
 
 const options2 = [
-  { key: "s", text: "Sunday", value: "sunday" },
-  { key: "m", text: "Mondsy", value: "mondsy" },
-  { key: "t", text: "Tuesday", value: "tuesday" },
-  { key: "w", text: "Wendsday", value: "wendsday" },
-  { key: "th", text: "Thursday", value: "thursday" },
-  { key: "f", text: "Friday", value: "friday" },
-  { key: "s", text: "Satueday", value: "satueday" },
+  { key: "s", text: "Sunday", value: "Sunday" },
+  { key: "m", text: "Monday", value: "Monday" },
+  { key: "t", text: "Tuesday", value: "Tuesday" },
+  { key: "w", text: "Wendsday", value: "Wendsday" },
+  { key: "th", text: "Thursday", value: "Thursday" },
+  { key: "f", text: "Friday", value: "Friday" },
+  { key: "s", text: "Saturday", value: "Saturday" },
 ];
 function AddStudent() {
-  let navigate = useNavigate();
+  // let navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
@@ -66,12 +66,12 @@ function AddStudent() {
     onSubmit: (values) => {
       timetableService.insertTimetable(values).then(() => {
         SoloAlert.alert({
-          title: "Welcome!",
+          title: "Success!!!",
           body: "Data added successfully",
           icon: "success",
-          theme: "dark",
+          theme: "light",
           useTransparency: true,
-          onOk: function () {
+          onOk: function() {
             window.location = "/viewTimetable";
           },
         });
@@ -86,7 +86,7 @@ function AddStudent() {
         <Form id="student-form" onSubmit={formik.handleSubmit}>
           <label id="student-form-label">Add Timetable</label>
           <Form.Field>
-            <label>teacherName</label>
+            <label>Teacher Name</label>
             <input
               placeholder="teacherName"
               id="teacherName"

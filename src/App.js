@@ -1,24 +1,32 @@
 import "./App.css";
 import React, { Suspense, lazy } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Switch,
+} from "react-router-dom";
 const StuAdminProfile = lazy(() => import("./pages/StuAdminProfile"));
 const AddStudent = lazy(() => import("./pages/AddStudent"));
-const SingleStudent = lazy(() => import("./pages/SingleStudent"));
+// const SingleStudent = lazy(() => import("./pages/SingleStudent"));
 const ViewStudents = lazy(() => import("./pages/ViewStudents"));
 const ViewTimetable = lazy(() => import("./pages/ViewTimetable"));
-const AddTimetable = lazy(() => import("./pages/AddTimetable"));
+const AddTimetabl = lazy(() => import("./pages/AddTimetable"));
+const SingleViewTimetable = lazy(() => import("./pages/singleView"));
 
 const App = () => (
   <Router>
     <Suspense fallback={<div>Loading...</div>}>
-      <Routes>
-        <Route path="/stuAdminProfile" element={<StuAdminProfile />} />
-        <Route path="/addStudent" element={<AddStudent />} />
-        <Route path="/viewStudent" element={<ViewStudents />} />
-        <Route path="/singleStudent" element={<SingleStudent />} />
-        <Route path="/viewTimetable" element={<ViewTimetable />} />
-        <Route path="/addTimetable" element={<AddTimetable />} />
-      </Routes>
+      <Switch>
+        <Route path="/stuAdminProfile" component={StuAdminProfile} />
+        <Route path="/addStudent" component={AddStudent} />
+        <Route path="/viewStudent" component={ViewStudents} />
+        {/* <Route path="/singleStudent" component={SingleStudent} /> */}
+        <Route path="/viewTimetable" component={ViewTimetable} />
+        <Route path="/addTimetable" component={AddTimetabl} />
+        {/* <Route path="/viewOneTimetable" component={ViewOneTimetable} /> */}
+        <Route path="/singleViewTimetable" component={SingleViewTimetable} />
+      </Switch>
     </Suspense>
   </Router>
 );

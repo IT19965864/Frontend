@@ -9,6 +9,10 @@ class TimetableService {
   getAllTimetable() {
     return axios.get(TIMETABLE_API_BASE_URL);
   }
+  getTimetableById(timetableId) {
+    console.log(timetableId);
+    return axios.get(TIMETABLE_API_BASE_URL + `/${timetableId}`);
+  }
 }
 
 export default new TimetableService();

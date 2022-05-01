@@ -5,7 +5,7 @@ import "../styles/student.css";
 import { Button, Select, Form, Dropdown } from "semantic-ui-react";
 import * as Yup from "yup";
 import studentService from "../adapters/studentService";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 const options = [
   { key: "m", text: "Male", value: "male" },
@@ -13,7 +13,7 @@ const options = [
 ];
 
 function AddStudent() {
-  let navigate = useNavigate();
+  // let navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
@@ -31,7 +31,10 @@ function AddStudent() {
         .max(30, "Input 30 characters or below")
         .matches(/^[A-Za-z ]*$/, "Please Enter Valid name")
         .required("*Required"),
-      nic: Yup.string().min(9).max(12).required("*Required"),
+      nic: Yup.string()
+        .min(9)
+        .max(12)
+        .required("*Required"),
       gender: Yup.string().required("*Required"),
 
       address: Yup.string()
@@ -54,7 +57,7 @@ function AddStudent() {
         .required("*Required"),
     }),
     onSubmit: (values) => {
-      studentService.insertStudents(values).then(navigate("/viewStudent"));
+      // studentService.insertStudents(values).then(navigate("/viewStudent"));
       //  axios.post("http://localhost:8070/student/add",values);
       console.log(values);
     },

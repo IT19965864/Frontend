@@ -1,7 +1,7 @@
 #student-form {
   width: 300px;
   margin-top: 100px;
-  margin-left: 550px;
+  margin-left: 810px;
   background-color: #f5f5f5;
   border-radius: 10px;
   padding: 10px;
@@ -29,4 +29,28 @@
 #student-search {
   margin-top: 40px;
   margin-left: 1040px;
+}
+#single-student-form {
+  box-sizing: border-box;
+  font-family: "Rubik", sans-serif;
+  width: 340px;
+  margin-top: 100px;
+  margin-left: 800px;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  padding: 10px;
+}
+#single-student-form-label {
+  margin-left: 70px;
+  text-align: center;
+  font-size: x-large;
+}
+
+#text {
+  font-size: 12pt;
+  font-family: "calibri";
+}
+#button {
+  margin-top: 40px;
+  margin-left: 130px;
 }
