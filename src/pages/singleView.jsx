@@ -9,13 +9,13 @@ class singaleView extends Component {
 
     this.state = {
       id: this.props.match.params.id,
-      teacher: {},
+      timetable: {},
     };
   }
 
   componentDidMount() {
-    timetableService.getTeacherById(this.state.id).then((res) => {
-      this.setState({ teacher: res.data.user });
+    timetableService.getTimetableById(this.state.id).then((res) => {
+      this.setState({ timetable: res.data.user });
     });
   }
 
@@ -35,17 +35,17 @@ class singaleView extends Component {
 
           <div className="teacher-box-view-text grid">
             <p>Teacher Name</p>
-            <p>{this.state.teacher.teacherName}</p>
+            <p>{this.state.timetable.teacherName}</p>
             <p>Subject</p>
-            <p>{this.state.teacher.teacherNic}</p>
+            <p>{this.state.timetable.subject}</p>
             <p>Grade r</p>
-            <p>{this.state.teacher.teacherMobile}</p>
+            <p>{this.state.timetable.grade}</p>
             <p>Day</p>
-            <p>{this.state.teacher.teacherEmail}</p>
+            <p>{this.state.timetable.day}</p>
             <p>Start Time</p>
-            <p>{this.state.teacher.teacherEmail}</p>
+            <p>{this.state.timetable.startTime}</p>
             <p>End Time</p>
-            <p>{this.state.teacher.teacherEmail}</p>
+            <p>{this.state.timetable.endTime}</p>
             <div className="back-button">
               <Button
                 secondary

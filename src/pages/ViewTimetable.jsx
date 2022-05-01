@@ -28,7 +28,8 @@ class ViewTimetable extends Component {
     this.setState({ searchId: event.target.value.substr(0, 20) });
   }
   viewSingleStudent(id) {
-    this.history.push(`/singleStudent/${id}`);
+    // this.history.push(`/singleStudent/${id}`);
+    window.location = `/singleStudent/${id}`;
   }
 
   render() {
