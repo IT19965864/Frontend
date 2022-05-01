@@ -1,16 +1,17 @@
-import { Component } from "react";
+import React,{ Component } from "react";
 import studentService from "../adapters/studentService";
 import Navbar from "../components/StuNavBar";
 import { Table,Button,Icon ,Search} from 'semantic-ui-react'
 import '../styles/student.css';
-import {useNavigate} from 'react-router-dom';
+import { withRouter } from "react-router-dom";
+
 const colors = [
   
     'blue',
    
   ]
 
-export default class ViewStudents extends Component{
+class ViewStudents extends Component{
 
     constructor(props){
         super(props)
@@ -20,6 +21,7 @@ export default class ViewStudents extends Component{
             searchId:''
         }
 
+        this.viewSingleStudent=this.viewSingleStudent.bind(this);
         this.viewSingleStudent=this.viewSingleStudent.bind(this);
     }
 
@@ -36,7 +38,8 @@ export default class ViewStudents extends Component{
             20)});
     }
     viewSingleStudent(id){
-        this.history.push(`/singleStudent/${id}`);
+        
+        window.location = "/viewOneStudent";
     }
 
     render(){
@@ -50,6 +53,7 @@ export default class ViewStudents extends Component{
         return(
             <div>
                 <Navbar/>
+
                 <div id='student-search'>
                     <Search 
                         //loading={loading}
@@ -62,7 +66,7 @@ export default class ViewStudents extends Component{
                          value={this.state.searchId}
                     />
                 </div>
-               
+                <label id ='student-table-label'>Students List</label>
                 <div className='student'>
                 {colors.map((color) => (
                     <Table striped id='student-table'color={color} key={color}>
@@ -73,7 +77,7 @@ export default class ViewStudents extends Component{
                         <Table.HeaderCell>Gender</Table.HeaderCell>
                         <Table.HeaderCell>Address</Table.HeaderCell>
                         <Table.HeaderCell>Email</Table.HeaderCell>
-                        <Table.HeaderCell>Contact</Table.HeaderCell>
+                        <Table.HeaderCell>ContactNo</Table.HeaderCell>
                         <Table.HeaderCell>Action</Table.HeaderCell>
                         </Table.Row>
                     </Table.Header>
@@ -124,3 +128,4 @@ export default class ViewStudents extends Component{
     }
 
 }
+export  default withRouter(ViewStudents);

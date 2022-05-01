@@ -44,7 +44,7 @@
 }
 .nav-text a{
     text-decoration: none;
-    color: #fab84d;
+    color: #87AFC7;
     /* background-color: #666161 ; */
     font-size: 18px;
     width: 95%;
@@ -58,7 +58,7 @@
 }
 
 .nav-text a:hover{
-    background-color: #0f0c03;
+    background-color: #151B54;
 }
 
 .nav-menu-items{

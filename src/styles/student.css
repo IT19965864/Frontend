@@ -14,17 +14,39 @@
     text-align: center;
     font-size: x-large;
 }
+#student-table-label{
+   
+    margin-left: 700px;
+    text-align: center;
+    font-size: x-large;
+}
+#single-student-form{
+   
+    width:340px;
+    margin-top: 100px;
+    margin-left: 550px;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    padding:10px;
+    
+}
+#single-student-form-label{
+    margin-left: 70px;
+    text-align: center;
+    font-size: x-large;
+}
 .student-form{
     align-items: center;
 }
 
 #student-button{
    margin-right: 20px;
+  
 }
 
 #student-table{
     width:900px;
-    margin-top: 50px;
+    margin-top: 30px;
     margin-left: 350px;
     border-radius: 10px;
     padding:1px;
@@ -32,4 +54,14 @@
 #student-search{
     margin-top: 40px;
     margin-left: 1040px;
+}
+#text{
+
+    font-size: 12pt;
+    font-family:'calibri';
+
+}
+#button{
+    margin-top: 40px;
+    margin-left: 130px;
 }
