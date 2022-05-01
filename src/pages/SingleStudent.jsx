@@ -1,79 +1,66 @@
 
-import React from 'react';
+import React,{Component} from 'react';
 import Navbar from '../components/StuNavBar';
 import '../styles/student.css';
 import { Button, Card, Form ,Dropdown} from 'semantic-ui-react'
+import studentService from '../adapters/studentService';
 //import {useNavigate} from 'react-router-dom';
-function ViewOneStudent() {
+class viewSingleStudnet extends Component {
+  constructor(props) {
+    super(props);
 
- // let navigate=useNavigate();
- 
+    this.state = {
+      id: this.props.match.params.id,
+      student: {},
+    };
+  }
 
-   return (
-     <>
-         <Navbar/>
-         <div>
-       
-         <Form id='single-student-form' >
-         <label id ='single-student-form-label'>Student Details</label>
-        
-         <Form.Field>
-             <label><pre id='text'>Student Name: Malindu Jethaka</pre></label>
-              
-           </Form.Field>
-          
-           <Form.Field>
-             <label><pre id='text'>NIC:                     199835710332</pre></label>
-             
-           </Form.Field>
+  componentDidMount() {
+    studentService.getStudentById(this.state.id).then((res) => {
+      this.setState({ student: res.data });
+      console.log(res.data);
+    });
+  }
 
-           <Form.Field>
-            <label><pre id='text'>Gender:              Male</pre></label>
+  cancel() {
+    this.props.history.push("/");
+  }
 
-           </Form.Field>
-       
-            <Form.Field>
-              <label><pre id='text'>Address:             No 24,wewalketiya</pre></label>
+  render() {
+    return (
+      <div>
+        <Navbar/>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Rubik:ital,wght@0,400;0,500;0,600;1,400&display=swap"
+          rel="stylesheet"
+        />
+        <div className="teacher-box-view box-size box-shadow">
+          <p className="teacher-heading">Student Information</p>
 
-            </Form.Field>
-
-            <Form.Field>
-              <label><pre id='text'>Email:                 malindujethaka@gmail.com</pre></label>
-              
-            </Form.Field>
-
-             <Form.Field>
-             <label><pre id='text'>ContactNo:       0767967190</pre></label>
-
-             </Form.Field>
-           {/* <Form.Field>
-             <label>Grade</label>
-             <input placeholder='Grade'
-             type="text"
-            />
-           </Form.Field> */}
-          <div id ="button">
-            <Button primary type='submit' size='small' >OK</Button>
+          <div className="teacher-box-view-text grid">
+            <p>Student Name</p>
+            <p>{this.state.student.stuName}</p>
+            <p>NIC</p>
+            <p>{this.state.student.nic}</p>
+            <p>Gender</p>
+            <p>{this.state.student.gender}</p>
+            <p>Address</p>
+            <p>{this.state.student.address}</p>
+            <div className="back-button">
+              <Button
+                secondary
+                type="viewmore"
+                size="small"
+                onClick={() => this.cancel()}
+              >
+                OK
+              </Button>
+            </div>
           </div>
-           
+        </div>
+      </div>
+    );
+  }
+}
 
-
-           
-       
-           
-           
-         </Form>
-       
-         </div>
-         
-        
-     </>
-    
-   );
-   
-   
-   
-   
- }
- 
- export default ViewOneStudent
+export default viewSingleStudnet;

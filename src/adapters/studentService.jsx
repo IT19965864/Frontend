@@ -10,6 +10,9 @@ class StudentService{
     getAllStudents(){
         return axios.get(STUDENT_API_BASE_URL);
     }
+    getStudentById(id){
+        return axios.get(STUDENT_API_BASE_URL+'/'+id);
+    }
 
 
 

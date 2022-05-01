@@ -12,7 +12,7 @@ const App = () => (
         <Route path="/stuAdminProfile" component={StuAdminProfile} />
         <Route path="/addStudent" component={AddStudent}/>
         <Route path="/viewStudent" component={ViewStudents} />
-        <Route path="/viewOneStudent" component={SingleStudent} />
+        <Route path="/viewOneStudent/:id" component={SingleStudent} />
        
       
       </Switch>

@@ -39,7 +39,8 @@ class ViewStudents extends Component{
     }
     viewSingleStudent(id){
         
-        window.location = "/viewOneStudent";
+        this.props.history.push(`/viewOneStudent/${id}`)
+        console.log(id);
     }
 
     render(){
