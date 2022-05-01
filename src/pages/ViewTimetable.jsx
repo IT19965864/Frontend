@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import timetableService from "../adapters/timetableService";
 import Navbar from "../components/TimetableNav";
 import { Table, Button, Icon, Search } from "semantic-ui-react";
-import "../styles/student.css";
+import "../styles/timetable.css";
 import { withRouter } from "react-router-dom";
 const colors = ["blue"];
 
