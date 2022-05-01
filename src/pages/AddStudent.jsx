@@ -5,8 +5,11 @@ import '../styles/student.css';
 import { Button, Select, Form ,Dropdown} from 'semantic-ui-react'
 import * as Yup from 'yup';
 import studentService from '../adapters/studentService';
-import {useNavigate} from 'react-router-dom';
-
+//import {useNavigate} from 'react-router-dom';
+import SoloAlert from "soloalert";
+//import { toast } from 'react-toastify';
+//import 'react-toastify/dist/ReactToastify.css'
+//toast.configure()
 const options = [
   { key: 'm', text: 'Male', value: 'male' },
   { key: 'f', text: 'Female', value: 'female' },
@@ -15,7 +18,13 @@ const options = [
 
 function AddStudent() {
 
- let navigate=useNavigate();
+// let navigate=useNavigate();
+
+ 
+//  const notify=()=>{
+//   toast.warn('New Salary Details Added Successfully!', {position: toast.POSITION.TOP_CENTER, autoClose: 2000})
+
+// }
 
   const formik=useFormik({
     initialValues:{
@@ -58,17 +67,27 @@ function AddStudent() {
 
     }),
       onSubmit:values=>{
-       studentService.insertStudents(values).then(
-         navigate('/viewStudent')
-       );
-      //  axios.post("http://localhost:8070/student/add",values);
-      console.log(values);
+       studentService.insertStudents(values).then(()=>{
+        SoloAlert.alert({
+          title: "Welcome!",
+          body: "Data added successfully",
+          icon: "success",
+          theme: "light",
+          useTransparency: true,
+          onOk: function () {
+           
 
-      }
-
+        },
     
-  
-  })
+        });
+        // notify(),
+        
+
+      });
+    }
+
+     
+  });
 
   
   
@@ -76,7 +95,7 @@ function AddStudent() {
     <>
         <Navbar/>
         <div>
-          
+      
         <Form id='student-form' onSubmit={formik.handleSubmit}>
         <label id ='student-form-label'>Add  Student</label>
           <Form.Field>
@@ -189,6 +208,7 @@ function AddStudent() {
           <Button primary type='submit' size='small'>Submit</Button>
           <Button secondary type='reset' size='small'>Reset</Button>
         </Form>
+      
         </div>
         
        

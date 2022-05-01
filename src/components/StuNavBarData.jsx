@@ -28,7 +28,7 @@ export const SidebarData=[
     },
     {
         title:'Settings',
-        path:'/resetPassword',
+        path:'/viewOneStudent',
         icon:<AiIcons.AiOutlineSetting/>,
         cName:'nav-text'
     },
