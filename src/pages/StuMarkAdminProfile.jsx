@@ -1,7 +1,7 @@
 import React from 'react'
-import Navbar from '../components/StuNavBar'
-import '../styles/student.css';
-function StuAdminProfile() {
+import Navbar from '../components/StuMarksNavBar'
+import '../styles/studentmark.css';
+function StuMarkAdminProfile() {
   return (
     <div>
       <Navbar/>
@@ -14,4 +14,4 @@ function StuAdminProfile() {
   )
 }
 
-export default StuAdminProfile
+export default StuMarkAdminProfile
