@@ -1,0 +1,144 @@
+#student-form {
+  width: 300px;
+  margin-top: 100px;
+  margin-left: 810px;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  padding: 10px;
+}
+#student-form-label {
+  margin-left: 70px;
+  text-align: center;
+  font-size: x-large;
+}
+.student-form {
+  align-items: center;
+}
+
+#student-button {
+  margin-right: 20px;
+}
+
+#student-table {
+  width: 900px;
+  margin-top: 50px;
+  margin-left: 350px;
+  border-radius: 10px;
+  padding: 1px;
+}
+#student-search {
+  margin-top: 40px;
+  margin-left: 1040px;
+}
+#single-student-form {
+  box-sizing: border-box;
+  font-family: "Rubik", sans-serif;
+  width: 340px;
+  margin-top: 100px;
+  margin-left: 800px;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  padding: 10px;
+}
+#single-student-form-label {
+  margin-left: 70px;
+  text-align: center;
+  font-size: x-large;
+}
+
+#text {
+  font-size: 12pt;
+  font-family: "calibri";
+}
+#button {
+  margin-top: 40px;
+  margin-left: 130px;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: "Rubik", sans-serif;
+}
+.search-teacher {
+  margin-top: 100px;
+  margin-left: 350px;
+}
+.teacher-detail {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+.teacher-detail-list {
+  display: flex;
+  gap: 72px;
+  align-items: center;
+}
+.box-shadow {
+  box-shadow: 0 2.4rem 4.8rem rgba(0, 0, 0, 0.351);
+}
+.box-size {
+  border-radius: 1.1rem;
+  margin: 120px;
+  width: 400px;
+  height: 400px;
+}
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.teacher-box-view-text {
+  padding: 48px;
+  align-items: center;
+}
+.teacher-heading {
+  display: inline-block;
+  padding-top: 12px;
+  padding-left: 44px;
+  align-items: center;
+  font-weight: 500;
+}
+.back-button {
+  margin-top: 36px;
+}
+
+p:last-child {
+  margin-top: 0;
+}
+.form-teacher {
+  margin-bottom: 350px;
+}
+.form-button {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 18px;
+}
+#teacher-form {
+  width: 300px;
+  margin-top: 100px;
+  margin-left: 350px;
+
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  padding: 10px;
+}
+#teacher-form-label {
+  margin-left: 70px;
+  text-align: center;
+  font-size: x-large;
+}
+.teacher-form {
+  align-items: center;
+}
+
+#teacher-button {
+  margin-right: 20px;
+}
+
+#teacher-table {
+  width: 900px;
+  margin-top: 100px;
+  margin-left: 350px;
+  border-radius: 10px;
+  padding: 1px;
+}
