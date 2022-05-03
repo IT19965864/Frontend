@@ -18,7 +18,7 @@ export const SidebarData = [
   },
   {
     title: "Manage Teacher",
-    path: "/viewTeacher",
+    path: "/",
     icon: <MdIcons.MdOutlineManageAccounts />,
     cName: "nav-text",
   },

@@ -7,6 +7,7 @@ const ViewStudent = lazy(() => import("./pages/ViewStudent"));
 const AddTeacher = lazy(() => import("./pages/AddTeacher"));
 const ViewTeacher = lazy(() => import("./pages/ViewTeacher"));
 const ViewSingleTeacher = lazy(() => import("./pages/ViewSingleTeacher"));
+const UpdateTeacher = lazy(() => import("./pages/UpdateTeacher"));
 const App = () => (
   <Router>
     <Suspense fallback={<div>Loading...</div>}>
@@ -16,6 +17,7 @@ const App = () => (
         <Route path="/viewStudent" component={ViewStudent} />
         <Route path="/addTeacher" component={AddTeacher} />
         <Route path="/singleTeacher/:id" component={ViewSingleTeacher} />
+        <Route path="/updateTeacher/:id" component={UpdateTeacher} />
         <Route path="/" component={ViewTeacher} />
       </Switch>
     </Suspense>

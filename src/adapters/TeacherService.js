@@ -14,6 +14,12 @@ class TeacherService {
     console.log(teacherId);
     return axios.get(TEACHER_API_BASE_URL + `/get/${teacherId}`);
   }
+  updateTeachers(teacher, teacherId) {
+    return axios.put(TEACHER_API_BASE_URL + "/update/" + teacherId, teacher);
+  }
+  deleteTeacher(teacherId) {
+    return axios.delete(TEACHER_API_BASE_URL + `/delete/${teacherId}`);
+  }
 }
 
 export default new TeacherService();

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useFormik } from "formik";
 import Navbar from "../components/TeacherNavBar";
 import "../styles/teacher.css";
@@ -6,8 +6,6 @@ import { Button, Select, Form, Dropdown } from "semantic-ui-react";
 import * as Yup from "yup";
 import teacherService from "../adapters/TeacherService";
 import SoloAlert from "soloalert";
-
-import axios, { Axios } from "axios";
 
 const genderOptions = [
   { key: "m", text: "Male", value: "male" },
@@ -27,9 +25,10 @@ const gradeOptions = [
   { key: 11, text: "11", value: 11 },
 ];
 
-function AddTeacher() {
+export default function sampleUpdate1() {
   const formik = useFormik({
     initialValues: {
+      id: this.props.match.params.id,
       teacherName: "",
       teacherNic: "",
       teacherGender: "",
@@ -77,7 +76,7 @@ function AddTeacher() {
       teacherService.insertTeachers(values).then(() => {
         SoloAlert.alert({
           title: "Welcome!",
-          body: "Data added successfully",
+          body: "Data updated successfully",
           icon: "success",
           theme: "light",
           useTransparency: true,
@@ -92,8 +91,24 @@ function AddTeacher() {
       // e.resetForm();
       // console.log(values);
     },
-  });
 
+    componentDidMount() {
+      teacherService.getTeacherById(this.state.id).then((res) => {
+        let teacher = res.data;
+        console.log(teacher);
+        this.setState({
+          teacherName: teacher.teacherName,
+          teacherNic: teacher.teacherNic,
+          teacherGender: teacher.teacherGender,
+          teacherBirthDate: teacher.teacherBirthDate,
+          teacherEmail: teacher.teacherEmail,
+          teacherMobile: teacher.teacherMobile,
+          teacherSubject: teacher.teacherSubject,
+          teacherGrade: teacher.teacherGrade,
+        });
+      });
+    },
+  });
   return (
     <>
       <Navbar />
@@ -239,10 +254,10 @@ function AddTeacher() {
             </Form.Field>
             <div className="form-button">
               <Button primary type="submit" size="small">
-                Submit
+                Update
               </Button>
               <Button secondary type="reset" size="small">
-                Reset
+                Cancel
               </Button>
             </div>
           </Form>
@@ -251,5 +266,3 @@ function AddTeacher() {
     </>
   );
 }
-
-export default AddTeacher;
