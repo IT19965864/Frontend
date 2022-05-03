@@ -6,20 +6,20 @@ import * as AiIcons from "react-icons/ai";
 export const SidebarData = [
   {
     title: "Admin Profile",
-    path: "/stuAdminprofile",
+    path: "/stuMarkAdminprofile",
     icon: <ImIcons.ImProfile />,
     cName: "nav-text",
   },
   {
-    title: "New Student",
-    path: "/addStudent",
-    icon: <AiIcons.AiOutlineUserAdd />,
+    title: "New Mark",
+    path: "/addMark",
+    icon: <AiIcons.AiOutlineFileAdd />,
     cName: "nav-text",
   },
   {
-    title: "Manage Student",
-    path: "/viewStudent",
-    icon: <MdIcons.MdOutlineManageAccounts />,
+    title: "Manage Mark",
+    path: "/viewMarks",
+    icon: <AiIcons.AiOutlineFileDone />,
     cName: "nav-text",
   },
   {

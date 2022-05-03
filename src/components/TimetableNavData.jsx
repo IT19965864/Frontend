@@ -11,14 +11,14 @@ export const SidebarData = [
     cName: "nav-text",
   },
   {
-    title: "New Student",
-    path: "/addStudent",
+    title: "New Timetable",
+    path: "/addTimetable",
     icon: <AiIcons.AiOutlineUserAdd />,
     cName: "nav-text",
   },
   {
-    title: "Manage Student",
-    path: "/viewStudent",
+    title: "Manage Table",
+    path: "/viewTimetable",
     icon: <MdIcons.MdOutlineManageAccounts />,
     cName: "nav-text",
   },
