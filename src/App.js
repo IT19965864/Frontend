@@ -23,6 +23,7 @@ const AddTeacher = lazy(() => import("./pages/AddTeacher"));
 const ViewTeacher = lazy(() => import("./pages/ViewTeacher"));
 const ViewSingleTeacher = lazy(() => import("./pages/ViewSingleTeacher"));
 const UpdateTeacher = lazy(() => import("./pages/UpdateTeacher"));
+const Home = lazy(() => import("./pages/Home"));
 
 const App = () => (
   <Router>
@@ -35,6 +36,7 @@ const App = () => (
         <Route path="/addTeacher" component={AddTeacher} />
         <Route path="/singleTeacher/:id" component={ViewSingleTeacher} />
         <Route path="/updateTeacher/:id" component={UpdateTeacher} />
+        <Route path="/Home" component={Home} />
         <Route path="/" component={ViewTeacher} />
 
         {/* stdent marks manager route */}
