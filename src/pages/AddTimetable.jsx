@@ -1,7 +1,7 @@
 import React from "react";
 import { useFormik } from "formik";
 import Navbar from "../components/TimetableNav";
-import "../styles/student.css";
+import "../styles/timetable.css";
 import { Button, Select, Form, Dropdown } from "semantic-ui-react";
 import * as Yup from "yup";
 import timetableService from "../adapters/timetableService";
@@ -71,7 +71,7 @@ function AddStudent() {
           icon: "success",
           theme: "light",
           useTransparency: true,
-          onOk: function() {
+          onOk: function () {
             window.location = "/viewTimetable";
           },
         });

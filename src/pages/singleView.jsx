@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import timetableService from "../adapters/timetableService";
 import { Table, Button, Icon, Search } from "semantic-ui-react";
-import "../styles/student.css";
+import "../styles/timetable.css";
 
 class singaleView extends Component {
   constructor(props) {
