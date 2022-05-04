@@ -58,7 +58,8 @@ class UpdateTeacher extends Component {
     this.changeTeacherEmailHandler = this.changeTeacherEmailHandler.bind(this);
     this.changeTeacherMobileHandler =
       this.changeTeacherMobileHandler.bind(this);
-    this.changeTeacherSubjectHandler = this.changeTeacherNicHandler.bind(this);
+    this.changeTeacherSubjectHandler =
+      this.changeTeacherSubjectHandler.bind(this);
     this.changeTeacherGradeHandler = this.changeTeacherGradeHandler.bind(this);
     this.updateTeacher = this.updateTeacher.bind(this);
   }
@@ -78,23 +79,23 @@ class UpdateTeacher extends Component {
         teacherSubject: teacher.teacherSubject,
         teacherGrade: teacher.teacherGrade,
       });
-      console.log(teacherBirthDate);
     });
+    console.log(this.state.teacherBirthDate);
   }
 
-  validateUpdateTeacherForm = () => {
+  validateUpdateTeacherForm() {
     // let menuItemTypeError="";
-    let teacherNameError = "";
-    let teacherNicError = "";
-    let teacherGenderError = "";
-    let teacherBirthDateError = "";
-    let teacherEmailError = "";
-    let teacherMobileError = "";
-    let teacherSubjectError = "";
-    let teacherGradeError = "";
+    // let teacherNameError = "";
+    // let teacherNicError = "";
+    // let teacherGenderError = "";
+    // let teacherBirthDateError = "";
+    // let teacherEmailError = "";
+    // let teacherMobileError = "";
+    // let teacherSubjectError = "";
+    // let teacherGradeError = "";
 
     if (!this.state.teacherName) {
-      teacherNameError = "Teacher name canot be null";
+      let teacherNameError = "Teacher name canot be null";
     }
     if (!this.state.teacherNic) {
       teacherNicError = "Teacher NIC canot be null";
@@ -140,7 +141,7 @@ class UpdateTeacher extends Component {
       return false;
     }
     return true;
-  };
+  }
 
   updateTeacher = (e) => {
     // e.preventDefault();
