@@ -3,7 +3,9 @@ import teacherService from "../adapters/TeacherService";
 import Navbar from "../components/TeacherNavBar";
 import { Table, Button, Icon, Search } from "semantic-ui-react";
 import "../styles/teacher.css";
-import { useHistory } from "react-router-dom";
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
+
 import { withRouter } from "react-router-dom";
 
 const colors = ["blue"];
@@ -16,6 +18,8 @@ class ViewTeacher extends Component {
       searchId: "",
     };
     this.viewSingleTeacher = this.viewSingleTeacher.bind(this);
+    this.onClickDeleteTeacher = this.onClickDeleteTeacher.bind(this);
+    this.removeTeacher = this.removeTeacher.bind(this);
   }
   viewSingleTeacher(id) {
     console.log("kasun");
@@ -24,22 +28,47 @@ class ViewTeacher extends Component {
   editTeacher(id) {
     this.props.history.push(`/updateTeacher/${id}`);
   }
-  removeTeacher(id) {
-    var txt;
-    if (window.confirm("Are You Sure You Want To Delete!")) {
-      teacherService.deleteTeacher(id).then((res) => {
-        this.setState({
-          ...this.state,
-          teachers: this.state.teachers.filter((teacher) => teacher._id !== id),
-        });
-      });
-      txt = "You Succesfully Deleted Teacher!";
-    } else {
-      txt = "You pressed Cancel Try Again!";
-    }
-
-    document.getElementById("demo").innerHTML = txt;
+  onClickDeleteTeacher(id) {
+    confirmAlert({
+      title: "Confirm to Delete",
+      message: "Are you sure to delete this teacher",
+      buttons: [
+        {
+          label: "Yes",
+          onClick: () => this.removeTeacher(id),
+        },
+        {
+          label: "No",
+          onClick: () => alert("Click No"),
+        },
+      ],
+    });
   }
+  removeTeacher(id) {
+    teacherService.deleteTeacher(id).then((res) => {
+      this.setState({
+        ...this.state,
+        teachers: this.state.teachers.filter((teacher) => teacher._id !== id),
+      });
+    });
+  }
+
+  // removeTeacher(id) {
+  //   var txt;
+  //   if (window.confirm("Are You Sure You Want To Delete!")) {
+  //     teacherService.deleteTeacher(id).then((res) => {
+  //       this.setState({
+  //         ...this.state,
+  //         teachers: this.state.teachers.filter((teacher) => teacher._id !== id),
+  //       });
+  //     });
+  //     txt = "You Succesfully Deleted Teacher!";
+  //   } else {
+  //     txt = "You pressed Cancel Try Again!";
+  //   }
+
+  //   document.getElementById("demo").innerHTML = txt;
+  // }
 
   componentDidMount() {
     console.log("didmount");
@@ -136,7 +165,7 @@ class ViewTeacher extends Component {
                         secondary
                         type="delete"
                         size="small"
-                        onClick={() => this.removeTeacher(teacher._id)}
+                        onClick={() => this.onClickDeleteTeacher(teacher._id)}
                       >
                         Delete
                       </Button>
