@@ -12,10 +12,11 @@ const StuMarkAdminProfile = lazy(() =>
 const AddMark = lazy(() => import("../src/pages/AddMark"));
 const ViewMarks = lazy(() => import("../src/pages/ViewMarks"));
 const ViewSingleMark = lazy(() => import("../src/pages/ViewSingleMark"));
-// const StuAdminProfile = lazy(() => import("../src/pages/StuAdminProfile"));
-// const AddStudent = lazy(() => import("../src/pages/AddStudent"));
-const SingleStudent = lazy(() => import("../src/pages/SingleStudent"));
-// const ViewStudents = lazy(() => import("../src/pages/ViewStudents"));
+const StuAdminProfile = lazy(() => import('./pages/StuAdminProfile'));
+const AddStudent = lazy(() => import('./pages/AddStudent'));
+const SingleStudent = lazy(() => import('./pages/SingleStudent'));
+const ViewStudents = lazy(() => import('./pages/ViewStudents'));
+
 const ViewTimetable = lazy(() => import("../src/pages/ViewTimetable"));
 const AddTimetabl = lazy(() => import("../src/pages/AddTimetable"));
 const SingleViewTimetable = lazy(() => import("../src/pages/singleView"));
@@ -29,14 +30,15 @@ const App = () => (
     <Suspense fallback={<div>Loading...</div>}>
       <Switch>
         {/* teacher routes */}
-        {/* <Route path="/stuAdminProfile" component={StuAdminProfile} /> */}
-        {/* <Route path="/addStudent" component={AddStudent} /> */}
-        {/* <Route path="/viewStudent" component={ViewStudent} /> */}
+        
         <Route path="/addTeacher" component={AddTeacher} />
         <Route path="/singleTeacher/:id" component={ViewSingleTeacher} />
         <Route path="/updateTeacher/:id" component={UpdateTeacher} />
-        <Route path="/" component={ViewTeacher} />
-
+        <Route exact path="/" component={ViewTeacher} />
+        <Route path="/stuAdminProfile" component={StuAdminProfile} />
+        <Route path="/addStudent" component={AddStudent}/>
+        <Route path="/viewStudent" component={ViewStudents} />
+        <Route path="/viewOneStudent/:id" component={SingleStudent} />
         {/* stdent marks manager route */}
         <Route path="/stuMarkAdminprofile" component={StuMarkAdminProfile} />
         <Route path="/addMark" component={AddMark} />
