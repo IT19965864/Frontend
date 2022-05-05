@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import TeacherService from "../adapters/TeacherService";
 import "../styles/teacher.css";
 import { Button, Select, Form, Dropdown } from "semantic-ui-react";
-import { isValidName, isValidDescription } from "../components/TeacherUtils";
+
 import { withRouter } from "react-router-dom";
 import Navbar from "../components/TeacherNavBar";
 import SoloAlert from "soloalert";
