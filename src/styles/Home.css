@@ -78,3 +78,39 @@ body {
   margin: 0 auto;
   padding: 0 32px;
 }
+
+/* footer */
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 5.5fr 1.5fr 2.5fr 1.5fr;
+  gap: 90px;
+}
+.section-footer {
+  margin-top: 96px;
+
+  border-top: 1px solid rgba(0, 0, 0, 0.048);
+  background-color: #e7f5ff;
+}
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 72px 36px 36px;
+}
+.prime-header {
+  font-size: 14px;
+  font-weight: 500;
+}
+.social {
+  margin-bottom: 18px;
+}
+ion-icon {
+  color: blue;
+}
+.grid-footer {
+  display: flex;
+  gap: 12px;
+}
+.email-img {
+  width: 24px;
+  height: 24px;
+}
