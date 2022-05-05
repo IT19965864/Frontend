@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import TeacherService from "../adapters/TeacherService";
 import "../styles/teacher.css";
 import { Button, Select, Form, Dropdown } from "semantic-ui-react";
+
 import { withRouter } from "react-router-dom";
 import Navbar from "../components/TeacherNavBar";
 import SoloAlert from "soloalert";
@@ -33,33 +34,34 @@ class UpdateTeacher extends Component {
       id: this.props.match.params.id,
       teacherName: "",
       teacherNic: "",
-      teacherGender: "",
-      teacherBirthDate: "",
+      // teacherGender: "",
+      // teacherBirthDate: "",
       teacherEmail: "",
       teacherMobile: "",
       teacherSubject: "",
-      teacherGrade: "",
+      // teacherGrade: "",
       teacherNameError: "",
       teacherNicError: "",
-      teacherGenderError: "",
-      teacherBirthDateError: "",
+      // teacherGenderError: "",
+      // teacherBirthDateError: "",
       teacherEmailError: "",
       teacherMobileError: "",
       teacherSubjectError: "",
-      teacherGradeError: "",
+      // teacherGradeError: "",
     };
 
     this.changeTeacherNameHandler = this.changeTeacherNameHandler.bind(this);
     this.changeTeacherNicHandler = this.changeTeacherNicHandler.bind(this);
-    this.changeTeacherGenderHandler =
-      this.changeTeacherGenderHandler.bind(this);
-    this.changeTeacherBirthDateHandler =
-      this.changeTeacherBirthDateHandler.bind(this);
+    // this.changeTeacherGenderHandler =
+    //   this.changeTeacherGenderHandler.bind(this);
+    // this.changeTeacherBirthDateHandler =
+    //   this.changeTeacherBirthDateHandler.bind(this);
     this.changeTeacherEmailHandler = this.changeTeacherEmailHandler.bind(this);
     this.changeTeacherMobileHandler =
       this.changeTeacherMobileHandler.bind(this);
-    this.changeTeacherSubjectHandler = this.changeTeacherNicHandler.bind(this);
-    this.changeTeacherGradeHandler = this.changeTeacherGradeHandler.bind(this);
+    this.changeTeacherSubjectHandler =
+      this.changeTeacherSubjectHandler.bind(this);
+    // this.changeTeacherGradeHandler = this.changeTeacherGradeHandler.bind(this);
     this.updateTeacher = this.updateTeacher.bind(this);
   }
 
@@ -71,76 +73,97 @@ class UpdateTeacher extends Component {
       this.setState({
         teacherName: teacher.teacherName,
         teacherNic: teacher.teacherNic,
-        teacherGender: teacher.teacherGender,
-        teacherBirthDate: teacher.teacherBirthDate,
+        // teacherGender: teacher.teacherGender,
+        // teacherBirthDate: teacher.teacherBirthDate,
         teacherEmail: teacher.teacherEmail,
         teacherMobile: teacher.teacherMobile,
         teacherSubject: teacher.teacherSubject,
-        teacherGrade: teacher.teacherGrade,
+        // teacherGrade: teacher.teacherGrade,
       });
-      console.log(teacherBirthDate);
     });
+    console.log(this.state.teacherBirthDate);
   }
 
-  validateUpdateTeacherForm = () => {
+  validateUpdateTeacherForm() {
     // let menuItemTypeError="";
     let teacherNameError = "";
     let teacherNicError = "";
-    let teacherGenderError = "";
-    let teacherBirthDateError = "";
+    // let teacherGenderError = "";
+    // let teacherBirthDateError = "";
     let teacherEmailError = "";
     let teacherMobileError = "";
     let teacherSubjectError = "";
-    let teacherGradeError = "";
+    // let teacherGradeError = "";
 
-    if (!this.state.teacherName) {
-      teacherNameError = "Teacher name canot be null";
+    if (
+      this.state.teacherName === "" ||
+      this.state.teacherName === null ||
+      this.state.teacherName === undefined
+    ) {
+      teacherNameError = "Teacher name canot be null can not contain numbers";
     }
-    if (!this.state.teacherNic) {
-      teacherNicError = "Teacher NIC canot be null";
+    if (
+      this.state.teacherNic === "" ||
+      this.state.teacherNic === null ||
+      this.state.teacherNic === undefined
+    ) {
+      teacherNicError = "Teacher NIC canot be null and shoul be valid";
     }
-    if (!this.state.teacherGender) {
-      teacherGenderError = "Gender canot be null";
-    }
-    if (!this.state.teacherBirthDate) {
-      teacherBirthDateError = "Birthdate canot be null";
-    }
-    if (!this.state.teacherEmail) {
+    // if (!this.state.teacherGender) {
+    //   teacherGenderError = "Gender canot be null";
+    // }
+    // if (!this.state.teacherBirthDate) {
+    //   teacherBirthDateError = "Birthdate canot be null";
+    // }
+    if (
+      this.state.teacherEmail === "" ||
+      this.state.teacherEmail === null ||
+      this.state.teacherEmail === undefined
+    ) {
       teacherEmailError = "Email-address canot be null";
     }
-    if (!this.state.teacherMobile) {
+    if (
+      this.state.teacherMobile === "" ||
+      this.state.teacherMobile === null ||
+      this.state.teacherMobile === undefined
+    ) {
       teacherMobileError = "Moblie number canot be null";
     }
-    if (!this.state.teacherSubject) {
-      teacherSubjectError = "Teacher subject canot be null";
+    if (
+      this.state.teacherSubject === "" ||
+      this.state.teacherSubject === null ||
+      this.state.teacherSubject === undefined
+    ) {
+      teacherSubjectError =
+        "Teacher subject canot be null can not contain numbers";
     }
-    if (!this.state.teacherGrade) {
-      teacherGradeError = "Teacher grade canot be null";
-    }
+    // if (!this.state.teacherGrade) {
+    //   teacherGradeError = "Teacher grade canot be null";
+    // }
     if (
       teacherNameError ||
       teacherNicError ||
-      teacherGenderError ||
-      teacherBirthDateError ||
+      // teacherGenderError ||
+      // teacherBirthDateError ||
       teacherEmailError ||
       teacherMobileError ||
-      teacherSubjectError ||
-      teacherGradeError
+      teacherSubjectError
+      // teacherGradeError
     ) {
       this.setState({
         teacherNameError,
         teacherNicError,
-        teacherGenderError,
-        teacherBirthDateError,
+        // teacherGenderError,
+        // teacherBirthDateError,
         teacherEmailError,
         teacherMobileError,
         teacherSubjectError,
-        teacherGradeError,
+        // teacherGradeError,
       });
       return false;
     }
     return true;
-  };
+  }
 
   updateTeacher = (e) => {
     // e.preventDefault();
@@ -149,12 +172,12 @@ class UpdateTeacher extends Component {
       let teacher = {
         teacherName: this.state.teacherName,
         teacherNic: this.state.teacherNic,
-        teacherGender: this.state.teacherGender,
-        teacherBirthDate: this.state.teacherBirthDate,
+        // teacherGender: this.state.teacherGender,
+        // teacherBirthDate: this.state.teacherBirthDate,
         teacherEmail: this.state.teacherEmail,
         teacherMobile: this.state.teacherMobile,
         teacherSubject: this.state.teacherSubject,
-        teacherGrade: this.state.teacherGrade,
+        // teacherGrade: this.state.teacherGrade,
       };
       console.log("teacher => " + JSON.stringify(teacher));
 
@@ -181,13 +204,13 @@ class UpdateTeacher extends Component {
     this.setState({ teacherNic: event.target.value });
   };
 
-  changeTeacherGenderHandler = (event) => {
-    this.setState({ teacherGender: event.target.value });
-  };
+  // changeTeacherGenderHandler = (event) => {
+  //   this.setState({ teacherGender: event.target.value });
+  // };
 
-  changeTeacherBirthDateHandler = (event) => {
-    this.setState({ teacherBirthDate: event.target.value });
-  };
+  // changeTeacherBirthDateHandler = (event) => {
+  //   this.setState({ teacherBirthDate: event.target.value });
+  // };
 
   changeTeacherEmailHandler = (event) => {
     this.setState({ teacherEmail: event.target.value });
@@ -201,9 +224,9 @@ class UpdateTeacher extends Component {
     this.setState({ teacherSubject: event.target.value });
   };
 
-  changeTeacherGradeHandler = (event) => {
-    this.setState({ teacherGrade: event.target.value });
-  };
+  // changeTeacherGradeHandler = (event) => {
+  //   this.setState({ teacherGrade: event.target.value });
+  // };
 
   cancel() {
     this.props.history.push("/");
@@ -226,8 +249,10 @@ class UpdateTeacher extends Component {
                   type="text"
                   onChange={this.changeTeacherNameHandler}
                   value={this.state.teacherName}
-                  required
                 />
+                <div style={{ fontSize: 12, color: "red" }}>
+                  {this.state.teacherNameError}
+                </div>
               </Form.Field>
 
               <Form.Field>
@@ -239,10 +264,12 @@ class UpdateTeacher extends Component {
                   type="text"
                   onChange={this.changeTeacherNicHandler}
                   value={this.state.teacherNic}
-                  required
                 />
+                <div style={{ fontSize: 12, color: "red" }}>
+                  {this.state.teacherNicError}
+                </div>
               </Form.Field>
-              <Form.Field>
+              {/* <Form.Field>
                 <label>Gender</label>
                 <Dropdown
                   selection
@@ -255,7 +282,7 @@ class UpdateTeacher extends Component {
                   required
                   disabled
                 />
-              </Form.Field>
+              </Form.Field> */}
 
               {/* <Form.Field>
                 <label>Birthday</label>
@@ -278,8 +305,10 @@ class UpdateTeacher extends Component {
                   type="text"
                   onChange={this.changeTeacherEmailHandler}
                   value={this.state.teacherEmail}
-                  required
                 />
+                <div style={{ fontSize: 12, color: "red" }}>
+                  {this.state.teacherEmailError}
+                </div>
               </Form.Field>
               <Form.Field>
                 <label>Mobile</label>
@@ -290,8 +319,10 @@ class UpdateTeacher extends Component {
                   type="number"
                   onChange={this.changeTeacherMobileHandler}
                   value={this.state.teacherMobile}
-                  required
                 />
+                <div style={{ fontSize: 12, color: "red" }}>
+                  {this.state.teacherMobileError}
+                </div>
               </Form.Field>
               <Form.Field>
                 <label>Subject</label>
@@ -302,11 +333,13 @@ class UpdateTeacher extends Component {
                   type="text"
                   onChange={this.changeTeacherSubjectHandler}
                   value={this.state.teacherSubject}
-                  required
                 />
+                <div style={{ fontSize: 12, color: "red" }}>
+                  {this.state.teacherSubjectError}
+                </div>
               </Form.Field>
 
-              <Form.Field>
+              {/* <Form.Field>
                 <label>Grade</label>
                 <Dropdown
                   selection
@@ -318,7 +351,7 @@ class UpdateTeacher extends Component {
                   value={this.state.teacherGrade}
                   disabled
                 />
-              </Form.Field>
+              </Form.Field> */}
               <div className="form-button">
                 <Button
                   primary
