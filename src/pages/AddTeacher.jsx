@@ -5,6 +5,8 @@ import "../styles/teacher.css";
 import { Button, Select, Form, Dropdown } from "semantic-ui-react";
 import * as Yup from "yup";
 import teacherService from "../adapters/TeacherService";
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
 import SoloAlert from "soloalert";
 
 import axios, { Axios } from "axios";
@@ -52,7 +54,8 @@ function AddTeacher() {
 
       teacherMobile: Yup.string()
         .matches(
-          /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/,
+          // /^((\\+[0-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/,
+          /^\d{10}$/,
           "Phone number is not valid"
         )
         .min(10)
@@ -75,16 +78,27 @@ function AddTeacher() {
     }),
     onSubmit: (values, e) => {
       teacherService.insertTeachers(values).then(() => {
-        SoloAlert.alert({
-          title: "Welcome!",
-          body: "Data added successfully",
-          icon: "success",
-          theme: "light",
-          useTransparency: true,
-          onOk: function () {
-            window.location = "/";
-          },
+        confirmAlert({
+          title: "Successfully Added!",
+          buttons: [
+            {
+              label: "OK",
+              onClick: () => {
+                window.location = "/";
+              },
+            },
+          ],
         });
+        // SoloAlert.alert({
+        //   title: "Welcome!",
+        //   body: "Data added successfully",
+        //   icon: "success",
+        //   theme: "light",
+        //   useTransparency: true,
+        //   onOk: function () {
+        //     window.location = "/";
+        //   },
+        // });
         e.resetForm();
         console.log(values);
       });
@@ -192,6 +206,8 @@ function AddTeacher() {
                 id="teacherMobile"
                 name="teacherMobile"
                 type="number"
+                onkeypress="return event.charCode >= 48"
+                min="1"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 value={formik.values.teacherMobile}
