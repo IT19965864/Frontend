@@ -54,8 +54,8 @@ function AddTeacher() {
 
       teacherMobile: Yup.string()
         .matches(
-          // /^((\\+[0-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/,
-          /^\d{10}$/,
+          /^((\\+[0-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/,
+          // /^\d{10}$/,
           "Phone number is not valid"
         )
         .min(10)
@@ -205,7 +205,7 @@ function AddTeacher() {
                 placeholder="Mobile"
                 id="teacherMobile"
                 name="teacherMobile"
-                type="number"
+                type="text"
                 onkeypress="return event.charCode >= 48"
                 min="1"
                 onChange={formik.handleChange}
