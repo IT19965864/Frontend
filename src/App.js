@@ -14,6 +14,9 @@ const ViewTimetable = lazy(() => import("./pages/ViewTimetable"));
 const AddTimetabl = lazy(() => import("./pages/AddTimetable"));
 const SingleViewTimetable = lazy(() => import("./pages/singleView"));
 const Login = lazy(() => import("./pages/login"));
+const TimeTbaleAdminProfile = lazy(() =>
+  import("./pages/timeTbaleAdminProfile")
+);
 
 const App = () => (
   <Router>
@@ -31,6 +34,10 @@ const App = () => (
         <Route
           path="/singleViewTimetable/:id"
           component={SingleViewTimetable}
+        />
+        <Route
+          path="/timeTbaleAdminProfile"
+          component={TimeTbaleAdminProfile}
         />
 
         {/* lpgin manager routes */}
