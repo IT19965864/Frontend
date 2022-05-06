@@ -12,10 +12,15 @@ const StuMarkAdminProfile = lazy(() =>
 const AddMark = lazy(() => import("../src/pages/AddMark"));
 const ViewMarks = lazy(() => import("../src/pages/ViewMarks"));
 const ViewSingleMark = lazy(() => import("../src/pages/ViewSingleMark"));
-const StuAdminProfile = lazy(() => import("./pages/StuAdminProfile"));
-const AddStudent = lazy(() => import("./pages/AddStudent"));
-const SingleStudent = lazy(() => import("./pages/SingleStudent"));
-const ViewStudents = lazy(() => import("./pages/ViewStudents"));
+const StuAdminProfile = lazy(() => import('./pages/StuAdminProfile'));
+const AddStudent = lazy(() => import('./pages/AddStudent'));
+const SingleStudent = lazy(() => import('./pages/SingleStudent'));
+const ViewStudents = lazy(() => import('./pages/ViewStudents'));
+const UpdateStudent=lazy(() => import('./pages/UpdateStudent'));
+// const StuAdminProfile = lazy(() => import("./pages/StuAdminProfile"));
+// const AddStudent = lazy(() => import("./pages/AddStudent"));
+// const SingleStudent = lazy(() => import("./pages/SingleStudent"));
+// const ViewStudents = lazy(() => import("./pages/ViewStudents"));
 
 const ViewTimetable = lazy(() => import("../src/pages/ViewTimetable"));
 const AddTimetabl = lazy(() => import("../src/pages/AddTimetable"));
@@ -42,6 +47,7 @@ const App = () => (
         <Route path="/addStudent" component={AddStudent} />
         <Route path="/viewStudent" component={ViewStudents} />
         <Route path="/viewOneStudent/:id" component={SingleStudent} />
+        <Route path="/updateStudent/:id" component={UpdateStudent} />
         {/* stdent marks manager route */}
         <Route path="/stuMarkAdminprofile" component={StuMarkAdminProfile} />
         <Route path="/addMark" component={AddMark} />

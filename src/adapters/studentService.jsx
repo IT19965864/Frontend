@@ -13,6 +13,12 @@ class StudentService{
     getStudentById(id){
         return axios.get(STUDENT_API_BASE_URL+'/'+id);
     }
+    deleteStudent(id){
+        return axios.delete(STUDENT_API_BASE_URL+'/'+id);
+    }
+    updateStudent(students,id){
+        return axios.put(STUDENT_API_BASE_URL + '/update/'+id,students);
+    }
 
 
 

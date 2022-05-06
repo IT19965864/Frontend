@@ -4,6 +4,7 @@ import Navbar from '../components/StuNavBar';
 import '../styles/student.css';
 import { Button, Select, Form ,Dropdown} from 'semantic-ui-react'
 import * as Yup from 'yup';
+import { useHistory } from 'react-router-dom';
 import studentService from '../adapters/studentService';
 //import {useNavigate} from 'react-router-dom';
 import SoloAlert from "soloalert";
@@ -15,6 +16,9 @@ const options = [
   { key: 'f', text: 'Female', value: 'female' },
  
 ]
+const cancel = () => {
+  window.location('/viewStudent');
+}
 
 function AddStudent() {
 
@@ -25,6 +29,7 @@ function AddStudent() {
 //   toast.warn('New Salary Details Added Successfully!', {position: toast.POSITION.TOP_CENTER, autoClose: 2000})
 
 // }
+const history = useHistory();
 
   const formik=useFormik({
     initialValues:{
@@ -76,7 +81,7 @@ function AddStudent() {
           useTransparency: true,
           onOk: function () {
            
-
+            history.push('/viewStudent')
         },
     
         });
@@ -84,6 +89,7 @@ function AddStudent() {
         
 
       });
+      
     }
 
      
@@ -206,7 +212,7 @@ function AddStudent() {
           </Form.Field> */}
          
           <Button primary type='submit' size='small'>Submit</Button>
-          <Button secondary type='reset' size='small'>Reset</Button>
+          <Button secondary  size='small' onClick={() => history.push('/viewStudent')}>Cancel</Button>
         </Form>
       
         </div>
