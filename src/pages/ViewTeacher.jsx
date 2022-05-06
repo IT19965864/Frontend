@@ -5,6 +5,8 @@ import { Table, Button, Icon, Search } from "semantic-ui-react";
 import "../styles/teacher.css";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
+import jspdf from "jspdf";
+import "jspdf-autotable";
 
 import { withRouter } from "react-router-dom";
 
@@ -20,6 +22,7 @@ class ViewTeacher extends Component {
     this.viewSingleTeacher = this.viewSingleTeacher.bind(this);
     this.onClickDeleteTeacher = this.onClickDeleteTeacher.bind(this);
     this.removeTeacher = this.removeTeacher.bind(this);
+    this.generatePDF = this.generatePDF.bind(this);
   }
   viewSingleTeacher(id) {
     console.log("kasun");
@@ -35,6 +38,7 @@ class ViewTeacher extends Component {
       buttons: [
         {
           label: "Yes",
+          className: "button",
           onClick: () => this.removeTeacher(id),
         },
         {
@@ -51,6 +55,48 @@ class ViewTeacher extends Component {
         teachers: this.state.teachers.filter((teacher) => teacher._id !== id),
       });
     });
+  }
+  generatePDF(teachers) {
+    alert("ok");
+    console.log(teachers);
+    const doc = new jspdf();
+    const tableColumn = [
+      "Teacher Name",
+      "Teacher NIC",
+      "Gender",
+      "Birthday",
+      "Email",
+      "Mobile",
+      "Subject",
+      "Grade",
+    ];
+    const tableRows = [];
+
+    teachers
+      .slice(0)
+      .reverse()
+      .map((teacher) => {
+        const teacherData = [
+          teacher.teacherName,
+          teacher.teacherNic,
+          teacher.teacherGender,
+          teacher.teacherBirthDate,
+          teacher.teacherEmail,
+          teacher.teacherMobile,
+          teacher.teacherSubject,
+          teacher.teacherGrade,
+        ];
+        tableRows.push(teacherData);
+      });
+    doc.autoTable(tableColumn, tableRows, {
+      styles: { fontSize: 8 },
+      startY: 35,
+    });
+    const date = Date().split(" ");
+    const dateStr = date[1] + "-" + date[2] + "-" + date[3];
+    doc.text("Teacher-Report", 14, 15).setFontSize(12);
+    doc.text(`Report Generated Date - ${dateStr} `, 14, 23);
+    doc.save(`Teacher-Details-Report_${dateStr}.pdf`);
   }
 
   // removeTeacher(id) {
@@ -142,7 +188,7 @@ class ViewTeacher extends Component {
                     <Table.Cell>{teacher.teacherGrade}</Table.Cell>
                     <Table.Cell>
                       <Button
-                        secondary
+                        color="blue"
                         type="viewmore"
                         size="small"
                         onClick={() => this.viewSingleTeacher(teacher._id)}
@@ -152,7 +198,7 @@ class ViewTeacher extends Component {
                     </Table.Cell>
                     <Table.Cell>
                       <Button
-                        secondary
+                        color="teal"
                         type="update"
                         size="small"
                         onClick={() => this.editTeacher(teacher._id)}
@@ -162,7 +208,7 @@ class ViewTeacher extends Component {
                     </Table.Cell>
                     <Table.Cell>
                       <Button
-                        secondary
+                        color="red"
                         type="delete"
                         size="small"
                         onClick={() => this.onClickDeleteTeacher(teacher._id)}
@@ -176,16 +222,19 @@ class ViewTeacher extends Component {
               <Table.Footer fullWidth>
                 <Table.Row>
                   <Table.HeaderCell />
-                  <Table.HeaderCell colSpan="6">
-                    {/* <Button
+                  <Table.HeaderCell colSpan="12">
+                    <Button
                       floated="right"
                       icon
                       labelPosition="left"
                       primary
                       size="small"
+                      onClick={(e) => {
+                        this.generatePDF(this.state.teachers);
+                      }}
                     >
                       <Icon name="file pdf" /> Generate Report
-                    </Button> */}
+                    </Button>
                   </Table.HeaderCell>
                 </Table.Row>
               </Table.Footer>
