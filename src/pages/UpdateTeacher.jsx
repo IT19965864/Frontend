@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import TeacherService from "../adapters/TeacherService";
 import "../styles/teacher.css";
 import { Button, Select, Form, Dropdown } from "semantic-ui-react";
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
 import { withRouter } from "react-router-dom";
 import Navbar from "../components/TeacherNavBar";
 import SoloAlert from "soloalert";
@@ -42,7 +44,7 @@ class UpdateTeacher extends Component {
       teacherNameError: "",
       teacherNicError: "",
       teacherGenderError: "",
-      teacherBirthDateError: "",
+      // teacherBirthDateError: "",
       teacherEmailError: "",
       teacherMobileError: "",
       teacherSubjectError: "",
@@ -58,9 +60,11 @@ class UpdateTeacher extends Component {
     this.changeTeacherEmailHandler = this.changeTeacherEmailHandler.bind(this);
     this.changeTeacherMobileHandler =
       this.changeTeacherMobileHandler.bind(this);
-    this.changeTeacherSubjectHandler = this.changeTeacherNicHandler.bind(this);
+    this.changeTeacherSubjectHandler =
+      this.changeTeacherSubjectHandler.bind(this);
     this.changeTeacherGradeHandler = this.changeTeacherGradeHandler.bind(this);
     this.updateTeacher = this.updateTeacher.bind(this);
+    this.onSuccessUpdate = this.onSuccessUpdate.bind(this);
   }
 
   componentDidMount() {
@@ -78,41 +82,76 @@ class UpdateTeacher extends Component {
         teacherSubject: teacher.teacherSubject,
         teacherGrade: teacher.teacherGrade,
       });
-      console.log(teacherBirthDate);
+    });
+    console.log(this.state.teacherBirthDate);
+  }
+
+  onSuccessUpdate() {
+    confirmAlert({
+      title: "Successfully Updated!",
+      buttons: [
+        {
+          label: "OK",
+          onClick: () => {
+            this.props.history.push("/");
+          },
+        },
+      ],
     });
   }
 
-  validateUpdateTeacherForm = () => {
+  validateUpdateTeacherForm() {
     // let menuItemTypeError="";
     let teacherNameError = "";
     let teacherNicError = "";
     let teacherGenderError = "";
-    let teacherBirthDateError = "";
+    // let teacherBirthDateError = "";
     let teacherEmailError = "";
     let teacherMobileError = "";
     let teacherSubjectError = "";
     let teacherGradeError = "";
 
-    if (!this.state.teacherName) {
-      teacherNameError = "Teacher name canot be null";
+    if (
+      this.state.teacherName === "" ||
+      this.state.teacherName === null ||
+      this.state.teacherName === undefined
+    ) {
+      teacherNameError = "Teacher name canot be null can not contain numbers";
     }
-    if (!this.state.teacherNic) {
-      teacherNicError = "Teacher NIC canot be null";
+    if (
+      this.state.teacherNic === "" ||
+      this.state.teacherNic === null ||
+      this.state.teacherNic === undefined
+    ) {
+      teacherNicError = "Teacher NIC canot be null and shoul be valid";
     }
     if (!this.state.teacherGender) {
       teacherGenderError = "Gender canot be null";
     }
-    if (!this.state.teacherBirthDate) {
-      teacherBirthDateError = "Birthdate canot be null";
-    }
-    if (!this.state.teacherEmail) {
+    // if (!this.state.teacherBirthDate) {
+    //   teacherBirthDateError = "Birthdate canot be null";
+    // }
+    if (
+      this.state.teacherEmail === "" ||
+      this.state.teacherEmail === null ||
+      this.state.teacherEmail === undefined
+    ) {
       teacherEmailError = "Email-address canot be null";
     }
-    if (!this.state.teacherMobile) {
+    if (
+      this.state.teacherMobile === "" ||
+      this.state.teacherMobile === null ||
+      this.state.teacherMobile === undefined
+    ) {
       teacherMobileError = "Moblie number canot be null";
     }
-    if (!this.state.teacherSubject) {
-      teacherSubjectError = "Teacher subject canot be null";
+    if (
+      this.state.teacherSubject === "" ||
+      this.state.teacherSubject === null ||
+      this.state.teacherSubject === undefined
+    ) {
+      teacherSubjectError =
+        "Teacher subject canot be null can not contain numbers";
     }
     if (!this.state.teacherGrade) {
       teacherGradeError = "Teacher grade canot be null";
@@ -121,7 +160,7 @@ class UpdateTeacher extends Component {
       teacherNameError ||
       teacherNicError ||
       teacherGenderError ||
-      teacherBirthDateError ||
+      // teacherBirthDateError ||
       teacherEmailError ||
       teacherMobileError ||
       teacherSubjectError ||
@@ -131,7 +170,7 @@ class UpdateTeacher extends Component {
         teacherNameError,
         teacherNicError,
         teacherGenderError,
-        teacherBirthDateError,
+        // teacherBirthDateError,
         teacherEmailError,
         teacherMobileError,
         teacherSubjectError,
@@ -140,10 +179,10 @@ class UpdateTeacher extends Component {
       return false;
     }
     return true;
-  };
+  }
 
-  updateTeacher = (e) => {
-    // e.preventDefault();
+  updateTeacher() {
+    console.log("malith");
     const isValid = this.validateUpdateTeacherForm();
     if (isValid) {
       let teacher = {
@@ -157,21 +196,11 @@ class UpdateTeacher extends Component {
         teacherGrade: this.state.teacherGrade,
       };
       console.log("teacher => " + JSON.stringify(teacher));
-
       TeacherService.updateTeachers(teacher, this.state.id).then((res) => {
-        SoloAlert.alert({
-          title: "Welcome!",
-          body: "Data updated successfully",
-          icon: "success",
-          theme: "light",
-          useTransparency: true,
-          onOk: function () {
-            window.location = "/";
-          },
-        });
+        this.onSuccessUpdate();
       });
     }
-  };
+  }
 
   changeTeacherNameHandler = (event) => {
     this.setState({ teacherName: event.target.value });
@@ -226,8 +255,10 @@ class UpdateTeacher extends Component {
                   type="text"
                   onChange={this.changeTeacherNameHandler}
                   value={this.state.teacherName}
-                  required
                 />
+                <div style={{ fontSize: 12, color: "red" }}>
+                  {this.state.teacherNameError}
+                </div>
               </Form.Field>
 
               <Form.Field>
@@ -239,8 +270,10 @@ class UpdateTeacher extends Component {
                   type="text"
                   onChange={this.changeTeacherNicHandler}
                   value={this.state.teacherNic}
-                  required
                 />
+                <div style={{ fontSize: 12, color: "red" }}>
+                  {this.state.teacherNicError}
+                </div>
               </Form.Field>
               <Form.Field>
                 <label>Gender</label>
@@ -278,8 +311,10 @@ class UpdateTeacher extends Component {
                   type="text"
                   onChange={this.changeTeacherEmailHandler}
                   value={this.state.teacherEmail}
-                  required
                 />
+                <div style={{ fontSize: 12, color: "red" }}>
+                  {this.state.teacherEmailError}
+                </div>
               </Form.Field>
               <Form.Field>
                 <label>Mobile</label>
@@ -290,8 +325,10 @@ class UpdateTeacher extends Component {
                   type="number"
                   onChange={this.changeTeacherMobileHandler}
                   value={this.state.teacherMobile}
-                  required
                 />
+                <div style={{ fontSize: 12, color: "red" }}>
+                  {this.state.teacherMobileError}
+                </div>
               </Form.Field>
               <Form.Field>
                 <label>Subject</label>
@@ -302,8 +339,10 @@ class UpdateTeacher extends Component {
                   type="text"
                   onChange={this.changeTeacherSubjectHandler}
                   value={this.state.teacherSubject}
-                  required
                 />
+                <div style={{ fontSize: 12, color: "red" }}>
+                  {this.state.teacherSubjectError}
+                </div>
               </Form.Field>
 
               <Form.Field>
