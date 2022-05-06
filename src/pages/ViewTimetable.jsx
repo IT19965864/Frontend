@@ -15,7 +15,7 @@ class ViewTimetable extends Component {
       searchId: "",
     };
 
-    this.viewSingleStudent = this.viewSingleStudent.bind(this);
+    this.viewSingleTimetable = this.viewSingleTimetable.bind(this);
   }
 
   componentDidMount() {
@@ -27,7 +27,7 @@ class ViewTimetable extends Component {
   searchMenuId(event) {
     this.setState({ searchId: event.target.value.substr(0, 20) });
   }
-  viewSingleStudent(id) {
+  viewSingleTimetable(id) {
     // this.history.push(`/singleStudent/${id}`);
     window.location = `/singleViewTimetable/${id}`;
   }
@@ -83,7 +83,7 @@ class ViewTimetable extends Component {
                         secondary
                         type="viewmore"
                         size="small"
-                        onClick={() => this.viewSingleStudent(timetable._id)}
+                        onClick={() => this.viewSingleTimetable(timetable._id)}
                       >
                         View More
                       </Button>
