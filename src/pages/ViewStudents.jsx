@@ -22,7 +22,7 @@ class ViewStudents extends Component{
         }
 
         this.viewSingleStudent=this.viewSingleStudent.bind(this);
-        this.viewSingleStudent=this.viewSingleStudent.bind(this);
+        this.Updatestudent=this.Updatestudent.bind(this);
     }
 
     
@@ -40,6 +40,16 @@ class ViewStudents extends Component{
     viewSingleStudent(id){
         
         this.props.history.push(`/viewOneStudent/${id}`)
+        console.log(id);
+    }
+    DeleteStudent(id){
+        studentService.deleteStudent(id).then(res=>{
+            this.setState({students:this.state.students.filter(student=>student._id!==id)});
+        });
+        console.log(id);
+    }
+    Updatestudent(id){
+        this.props.history.push(`/updateStudent/${id}`)
         console.log(id);
     }
 
@@ -77,7 +87,7 @@ class ViewStudents extends Component{
                         <Table.HeaderCell>NIC</Table.HeaderCell>
                         <Table.HeaderCell>Gender</Table.HeaderCell>
                         <Table.HeaderCell>Address</Table.HeaderCell>
-                        <Table.HeaderCell>Email</Table.HeaderCell>
+                        {/* <Table.HeaderCell>Email</Table.HeaderCell> */}
                         <Table.HeaderCell>ContactNo</Table.HeaderCell>
                         <Table.HeaderCell>Action</Table.HeaderCell>
                         </Table.Row>
@@ -93,9 +103,14 @@ class ViewStudents extends Component{
                                 <Table.Cell>{student.nic}</Table.Cell>
                                 <Table.Cell>{student.gender}</Table.Cell>
                                 <Table.Cell>{student.address}</Table.Cell>
-                                <Table.Cell>{student.email}</Table.Cell>
+                                {/* <Table.Cell>{student.email}</Table.Cell> */}
                                 <Table.Cell>{student.mobile}</Table.Cell>
-                                <Table.Cell><Button secondary type='viewmore' size='small' onClick={()=>this.viewSingleStudent(student._id)}>View More</Button></Table.Cell>
+                                <Table.Cell>
+                                    <Button secondary type='viewmore' size='small' onClick={()=>this.viewSingleStudent(student._id)}>View More</Button>
+                                    <Button secondary type='update' size='small' onClick={()=>this.Updatestudent(student._id)}>Update</Button>
+                                    <Button secondary type='delete' size='small' onClick={()=>this.DeleteStudent(student._id)}>Delete</Button>
+                                
+                                </Table.Cell>
                             </Table.Row>
                         )
                     }
