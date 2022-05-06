@@ -87,6 +87,22 @@ class ViewTimetable extends Component {
                       >
                         View More
                       </Button>
+                      <Button
+                        secondary
+                        type="update"
+                        size="small"
+                        onClick={() => this.Updatestudent(student._id)}
+                      >
+                        Update
+                      </Button>
+                      <Button
+                        secondary
+                        type="delete"
+                        size="small"
+                        onClick={() => this.DeleteStudent(student._id)}
+                      >
+                        Delete
+                      </Button>
                     </Table.Cell>
                   </Table.Row>
                 ))}
