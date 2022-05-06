@@ -12,6 +12,8 @@ const StuMarkAdminProfile = lazy(() =>
 const AddMark = lazy(() => import("../src/pages/AddMark"));
 const ViewMarks = lazy(() => import("../src/pages/ViewMarks"));
 const ViewSingleMark = lazy(() => import("../src/pages/ViewSingleMark"));
+const MarkReport = lazy(() => import("../src/pages/MarkReport"));
+
 // const StuAdminProfile = lazy(() => import("../src/pages/StuAdminProfile"));
 const AddStudent = lazy(() => import("../src/pages/AddStudent"));
 const SingleStudent = lazy(() => import("../src/pages/SingleStudent"));
@@ -29,6 +31,7 @@ const App = () => (
         <Route path="/addMark" component={AddMark} />
         <Route path="/viewMarks" component={ViewMarks} />
         <Route path="/ViewSingleMark/:id" component={ViewSingleMark} />
+        <Route path="/mark-report" component={MarkReport} />
 
         {/* student manager routes */}
         {/* <Route path="/stuAdminProfile" component={StuAdminProfile} />

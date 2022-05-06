@@ -17,6 +17,7 @@ class ViewMarks extends Component {
     };
 
     this.ViewSingleMark = this.ViewSingleMark.bind(this);
+    this.GenerateReport = this.GenerateReport.bind(this);
   }
 
   componentDidMount() {
@@ -31,10 +32,10 @@ class ViewMarks extends Component {
   ViewSingleMark(id) {
     this.props.history.push(`/ViewSingleMark/${id}`);
     console.log(id);
-
-    // this.props.navigation(`/singleStudent/${id}`);
   }
-
+  GenerateReport() {
+    this.props.history.push("/mark-report");
+  }
   render() {
     let filterEmpId = this.state.marks.filter((mark) => {
       return mark.stream.indexOf(this.state.searchId) !== -1;
@@ -99,14 +100,14 @@ class ViewMarks extends Component {
                     <Table.Cell>{mark.bioMarks}</Table.Cell>
                     <Table.Cell>{mark.mathsMarks}</Table.Cell>
                     <Table.Cell>
-                      {/* <Button
+                      <Button
                         secondary
                         type="viewmore"
                         size="small"
                         onClick={() => this.ViewSingleMark(mark._id)}
                       >
                         View More
-                      </Button> */}
+                      </Button>
                       {/* <Link
                         to="/ViewSingleMark"
                         className="btn btn-primary"
@@ -131,6 +132,8 @@ class ViewMarks extends Component {
                       labelPosition="left"
                       primary
                       size="small"
+                      onClick={this.GenerateReport}
+                      type="submit"
                     >
                       <Icon name="file pdf" /> Generate Report
                     </Button>
