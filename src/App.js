@@ -6,6 +6,15 @@ import {
   Routes,
   Switch,
 } from "react-router-dom";
+
+const ViewTimetable = lazy(() => import("./pages/ViewTimetable"));
+const AddTimetabl = lazy(() => import("./pages/AddTimetable"));
+const SingleViewTimetable = lazy(() => import("./pages/singleView"));
+const Login = lazy(() => import("./pages/login"));
+const updateTimetable = lazy(() => import("./pages/updateTimetable"));
+const TimeTbaleAdminProfile = lazy(() =>
+  import("./pages/timeTbaleAdminProfile")
+);
 const StuMarkAdminProfile = lazy(() =>
   import("../src/pages/StuMarkAdminProfile")
 );
@@ -22,9 +31,6 @@ const UpdateStudent = lazy(() => import("./pages/UpdateStudent"));
 // const SingleStudent = lazy(() => import("./pages/SingleStudent"));
 // const ViewStudents = lazy(() => import("./pages/ViewStudents"));
 
-const ViewTimetable = lazy(() => import("../src/pages/ViewTimetable"));
-const AddTimetabl = lazy(() => import("../src/pages/AddTimetable"));
-const SingleViewTimetable = lazy(() => import("../src/pages/singleView"));
 const AddTeacher = lazy(() => import("./pages/AddTeacher"));
 const ViewTeacher = lazy(() => import("./pages/ViewTeacher"));
 const ViewSingleTeacher = lazy(() => import("./pages/ViewSingleTeacher"));
@@ -67,6 +73,14 @@ const App = () => (
           path="/singleViewTimetable/:id"
           component={SingleViewTimetable}
         />
+        <Route
+          path="/timeTbaleAdminProfile"
+          component={TimeTbaleAdminProfile}
+        />
+        <Route path="/updateTimetable/:id" component={updateTimetable} />
+
+        {/* lpgin manager routes */}
+        <Route path="/login" component={Login} />
       </Switch>
     </Suspense>
   </Router>

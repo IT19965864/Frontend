@@ -1,14 +1,12 @@
-import React from 'react'
-import Navbar from '../components/StuNavBar'
-import '../styles/student.css';
+import React from "react";
+import Navbar from "../components/StuNavBar";
+import "../styles/student.css";
 function StuAdminProfile(props) {
   return (
     <>
-     <Navbar/>
+      <Navbar />
     </>
   );
-   
-  
 }
 
-export default StuAdminProfile
+export default StuAdminProfile;
