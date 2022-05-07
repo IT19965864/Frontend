@@ -7,6 +7,8 @@ import * as Yup from "yup";
 import timetableService from "../adapters/timetableService";
 import { useNavigate } from "react-router-dom";
 import SoloAlert from "soloalert";
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
 
 const options = [
   { key: "s", text: "Sinhala", value: "Sinhala" },
@@ -65,15 +67,26 @@ function AddStudent() {
     }),
     onSubmit: (values) => {
       timetableService.insertTimetable(values).then(() => {
-        SoloAlert.alert({
-          title: "Success!!!",
-          body: "Data added successfully",
-          icon: "success",
-          theme: "light",
-          useTransparency: true,
-          onOk: function () {
-            window.location = "/viewTimetable";
-          },
+        // SoloAlert.alert({
+        //   title: "Success!!!",
+        //   body: "Data added successfully",
+        //   icon: "success",
+        //   theme: "light",
+        //   useTransparency: true,
+        //   onOk: function () {
+        //     window.location = "/viewTimetable";
+        //   },
+        // });
+        confirmAlert({
+          title: "Successfully Added!",
+          buttons: [
+            {
+              label: "OK",
+              onClick: () => {
+                window.location = "/";
+              },
+            },
+          ],
         });
       });
     },
