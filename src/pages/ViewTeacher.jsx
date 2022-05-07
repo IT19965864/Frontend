@@ -227,7 +227,7 @@ class ViewTeacher extends Component {
                       floated="right"
                       icon
                       labelPosition="left"
-                      primary
+                      color="brown"
                       size="small"
                       onClick={(e) => {
                         this.generatePDF(this.state.teachers);

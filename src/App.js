@@ -46,9 +46,9 @@ const App = () => (
         <Route path="/addTeacher" component={AddTeacher} />
         <Route path="/singleTeacher/:id" component={ViewSingleTeacher} />
         <Route path="/updateTeacher/:id" component={UpdateTeacher} />
-        <Route path="/Home" component={Home} />
+        <Route exact path="/" component={Home} />
 
-        <Route exact path="/" component={ViewTeacher} />
+        <Route path="/viewTeacher" component={ViewTeacher} />
         <Route path="/stuAdminProfile" component={StuAdminProfile} />
         <Route path="/addStudent" component={AddStudent} />
         <Route path="/viewStudent" component={ViewStudents} />
