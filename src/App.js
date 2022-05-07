@@ -6,7 +6,6 @@ import {
   Routes,
   Switch,
 } from "react-router-dom";
-import UpdateMarks from "../src/pages/UpdateMarks";
 const StuMarkAdminProfile = lazy(() =>
   import("../src/pages/StuMarkAdminProfile")
 );

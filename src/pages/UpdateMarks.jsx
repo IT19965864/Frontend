@@ -2,7 +2,6 @@ import { useFormik } from "formik";
 import Navbar from "../components/StuMarksNavBar";
 import "../styles/studentmark.css";
 import { Button, Select, Form, Dropdown } from "semantic-ui-react";
-import * as Yup from "yup";
 import StudentMarkService from "../adapters/StudentMarkService";
 import React, { Component } from "react";
 import { confirmAlert } from "react-confirm-alert";
@@ -58,7 +57,7 @@ class UpdateMarks extends Component {
 
   componentDidMount() {
     StudentMarkService.getStudentMarkById(this.state.id).then((res) => {
-      console.log("teacmarksher");
+      console.log("mark");
       let mark = res.data.user;
       console.log(mark);
       this.setState({
@@ -187,7 +186,7 @@ class UpdateMarks extends Component {
         bioMarks: this.state.bioMarks,
         mathsMarks: this.state.mathsMarks,
       };
-      console.log("mark => " + JSON.stringify(markteacher));
+      console.log("mark => " + JSON.stringify(mark));
       StudentMarkService.updateMarks(mark, this.state.id).then((res) => {
         this.onSuccessUpdate();
       });
