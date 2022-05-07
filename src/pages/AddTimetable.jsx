@@ -83,7 +83,7 @@ function AddStudent() {
             {
               label: "OK",
               onClick: () => {
-                window.location = "/";
+                window.location = "/viewTimetable";
               },
             },
           ],
