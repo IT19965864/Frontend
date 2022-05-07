@@ -17,6 +17,9 @@ class TimetableService {
     console.log(timetableId);
     return axios.put(TIMETABLE_API_BASE_URL + `/${timetableId}`, value);
   }
+  deleteTimetable(id) {
+    return axios.delete(TIMETABLE_API_BASE_URL + "/" + id);
+  }
 }
 
 export default new TimetableService();
