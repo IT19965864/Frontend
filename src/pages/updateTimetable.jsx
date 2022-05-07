@@ -4,9 +4,10 @@ import Navbar from "../components/TimetableNav";
 import "../styles/timetable.css";
 import { Button, Select, Form, Dropdown } from "semantic-ui-react";
 import * as Yup from "yup";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import timetableService from "../adapters/timetableService";
-import { useNavigate } from "react-router-dom";
-import SoloAlert from "soloalert";
+import { useHistory } from "react-router-dom";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 
@@ -18,7 +19,6 @@ const options = [
   { key: "h", text: "History", value: "History" },
   { key: "p", text: "Physics", value: "Physics" },
 ];
-
 const options1 = [
   { text: "6", value: "6" },
   { text: "7", value: "7" },
@@ -39,17 +39,39 @@ const options2 = [
   { key: "f", text: "Friday", value: "Friday" },
   { key: "s", text: "Saturday", value: "Saturday" },
 ];
-function AddStudent() {
-  // let navigate = useNavigate();
+const cancel = () => {
+  window.location("/viewTimetable"); //methan
+};
+function updateTimetable() {
+  const history = useHistory();
+  const { id } = useParams();
+  const [teacherName, setTeacherName] = useState("");
+  const [subject, setSubject] = useState("");
+  const [grade, setGrade] = useState("");
+  const [day, setDay] = useState("");
+  const [startTime, setStartTime] = useState("");
+  const [endTime, setendTime] = useState("");
 
+  useEffect(() => {
+    timetableService.getTimetableById(id).then((res) => {
+      console.log(res.data.teacherName);
+      setTeacherName(res.data.teacherName);
+      setSubject(res.data.subject);
+      setGrade(res.data.grade);
+      setDay(res.data.day);
+      setStartTime(res.data.startTime);
+      setendTime(res.data.endTime);
+    });
+  }, []);
   const formik = useFormik({
+    enableReinitialize: true,
     initialValues: {
-      teacherName: "",
-      subject: "",
-      grade: "",
-      day: "",
-      startTime: "",
-      endTime: "",
+      teacherName: teacherName,
+      subject: subject,
+      grade: grade,
+      day: day,
+      startTime: startTime,
+      endTime: endTime,
     },
 
     validationSchema: Yup.object({
@@ -65,29 +87,11 @@ function AddStudent() {
       startTime: Yup.string().required("*Required"),
       endTime: Yup.string().required("*Required"),
     }),
+
     onSubmit: (values) => {
-      timetableService.insertTimetable(values).then(() => {
-        // SoloAlert.alert({
-        //   title: "Success!!!",
-        //   body: "Data added successfully",
-        //   icon: "success",
-        //   theme: "light",
-        //   useTransparency: true,
-        //   onOk: function () {
-        //     window.location = "/viewTimetable";
-        //   },
-        // });
-        confirmAlert({
-          title: "Successfully Added!",
-          buttons: [
-            {
-              label: "OK",
-              onClick: () => {
-                window.location = "/viewTimetable";
-              },
-            },
-          ],
-        });
+      console.log(values);
+      timetableService.updateTimetable(values, id).then((res) => {
+        history.push("/viewTimetable");
       });
     },
   });
@@ -100,6 +104,7 @@ function AddStudent() {
           <label id="student-form-label">Add Timetable</label>
           <Form.Field>
             <label>Teacher Name</label>
+
             <input
               placeholder="teacherName"
               id="teacherName"
@@ -195,23 +200,16 @@ function AddStudent() {
               <div style={{ color: "red" }}>{formik.errors.endTime}</div>
             ) : null}
           </Form.Field>
-          {/* <Form.Field>
-            <label>Grade</label>
-            <input placeholder='Grade'
-            type="text"
-           />
-          </Form.Field> */}
 
           <Button primary type="submit" size="small">
-            Submit
+            Update
           </Button>
           <Button secondary type="reset" size="small">
-            Reset
+            Cancel
           </Button>
         </Form>
       </div>
     </>
   );
 }
-
-export default AddStudent;
+export default updateTimetable;
