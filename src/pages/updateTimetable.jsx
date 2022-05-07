@@ -8,6 +8,9 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import timetableService from "../adapters/timetableService";
 import { useHistory } from "react-router-dom";
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
+
 const options = [
   { key: "s", text: "Sinhala", value: "Sinhala" },
   { key: "e", text: "English", value: "English" },
