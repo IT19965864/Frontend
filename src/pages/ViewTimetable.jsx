@@ -6,6 +6,8 @@ import "../styles/timetable.css";
 import { withRouter } from "react-router-dom";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
+import jspdf from "jspdf";
+import "jspdf-autotable";
 const colors = ["blue"];
 
 class ViewTimetable extends Component {
@@ -48,6 +50,43 @@ class ViewTimetable extends Component {
       });
     });
     console.log(id);
+  }
+  generatePDF(timetable) {
+    console.log(timetable);
+    const doc = new jspdf();
+    const tableColumn = [
+      "Teacher Name",
+      "Subject ",
+      "Grade",
+      "Day",
+      "Start Time",
+      "End Time",
+    ];
+    const tableRows = [];
+
+    timetable
+      .slice(0)
+      .reverse()
+      .map((timetable) => {
+        const timetableData = [
+          timetable.teacherName,
+          timetable.subject,
+          timetable.grade,
+          timetable.day,
+          timetable.startTime,
+          timetable.endTime,
+        ];
+        tableRows.push(timetableData);
+      });
+    doc.autoTable(tableColumn, tableRows, {
+      styles: { fontSize: 8 },
+      startY: 35,
+    });
+    const date = Date().split(" ");
+    const dateStr = date[1] + "-" + date[2] + "-" + date[3];
+    doc.text("Timetable-Report", 14, 15).setFontSize(12);
+    doc.text(`Report Generated Date - ${dateStr} `, 14, 23);
+    doc.save(`Timetable-Details-Report_${dateStr}.pdf`);
   }
 
   render() {
@@ -135,6 +174,9 @@ class ViewTimetable extends Component {
                       labelPosition="left"
                       primary
                       size="small"
+                      onClick={(e) => {
+                        this.generatePDF(this.state.timetable);
+                      }}
                     >
                       <Icon name="file pdf" /> Generate Report
                     </Button>
