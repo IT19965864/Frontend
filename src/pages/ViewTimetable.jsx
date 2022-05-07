@@ -4,6 +4,8 @@ import Navbar from "../components/TimetableNav";
 import { Table, Button, Icon, Search } from "semantic-ui-react";
 import "../styles/timetable.css";
 import { withRouter } from "react-router-dom";
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
 const colors = ["blue"];
 
 class ViewTimetable extends Component {

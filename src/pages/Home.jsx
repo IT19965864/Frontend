@@ -8,6 +8,9 @@ import phone from "../img/phone image.png";
 import { Link } from "react-router-dom";
 
 export default function Home() {
+  function login() {
+    window.location = "/login";
+  }
   return (
     <div>
       <link
@@ -40,7 +43,7 @@ export default function Home() {
               </a>
             </li>
             <li>
-              <a href="#" class="sections-links btn">
+              <a href="#" class="sections-links btn" onClick={login}>
                 Login
               </a>
             </li>

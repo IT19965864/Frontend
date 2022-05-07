@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const TIMETABLE_API_BASE_URL = "http://localhost:8070/timetable";
+const AUTH_API_BASE_URL = "http://localhost:8070/auth";
 
 class TimetableService {
   insertTimetable(timetable) {
@@ -19,6 +20,9 @@ class TimetableService {
   }
   deleteTimetable(id) {
     return axios.delete(TIMETABLE_API_BASE_URL + "/" + id);
+  }
+  insertLogin(login) {
+    return axios.post(AUTH_API_BASE_URL + "/login", login);
   }
 }
 
