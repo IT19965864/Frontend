@@ -11,6 +11,7 @@ const ViewTimetable = lazy(() => import("./pages/ViewTimetable"));
 const AddTimetabl = lazy(() => import("./pages/AddTimetable"));
 const SingleViewTimetable = lazy(() => import("./pages/singleView"));
 const Login = lazy(() => import("./pages/login"));
+const updateTimetable = lazy(() => import("./pages/updateTimetable"));
 const TimeTbaleAdminProfile = lazy(() =>
   import("./pages/timeTbaleAdminProfile")
 );
@@ -76,6 +77,7 @@ const App = () => (
           path="/timeTbaleAdminProfile"
           component={TimeTbaleAdminProfile}
         />
+        <Route path="/updateTimetable/:id" component={updateTimetable} />
 
         {/* lpgin manager routes */}
         <Route path="/login" component={Login} />

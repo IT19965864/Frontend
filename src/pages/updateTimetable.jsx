@@ -1,83 +1,94 @@
 import React from "react";
 import { useFormik } from "formik";
-import Navbar from "../components/StuNavBar";
-import "../styles/student.css";
+import Navbar from "../components/TimetableNav";
+import "../styles/timetable.css";
 import { Button, Select, Form, Dropdown } from "semantic-ui-react";
 import * as Yup from "yup";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import studentService from "../adapters/studentService";
+import timetableService from "../adapters/timetableService";
 import { useHistory } from "react-router-dom";
 const options = [
-  { key: "m", text: "Male", value: "male" },
-  { key: "f", text: "Female", value: "female" },
+  { key: "s", text: "Sinhala", value: "Sinhala" },
+  { key: "e", text: "English", value: "English" },
+  { key: "b", text: "Biology", value: "Biology" },
+  { key: "m", text: "Mathematics", value: "Mathematics" },
+  { key: "h", text: "History", value: "History" },
+  { key: "p", text: "Physics", value: "Physics" },
+];
+const options1 = [
+  { text: "6", value: "6" },
+  { text: "7", value: "7" },
+  { text: "8", value: "8" },
+  { text: "9", value: "9" },
+  { text: "10", value: "10" },
+  { text: "11", value: "11" },
+  { text: "12", value: "12" },
+  { text: "13", value: "13" },
+];
+
+const options2 = [
+  { key: "s", text: "Sunday", value: "Sunday" },
+  { key: "m", text: "Monday", value: "Monday" },
+  { key: "t", text: "Tuesday", value: "Tuesday" },
+  { key: "w", text: "Wendsday", value: "Wendsday" },
+  { key: "th", text: "Thursday", value: "Thursday" },
+  { key: "f", text: "Friday", value: "Friday" },
+  { key: "s", text: "Saturday", value: "Saturday" },
 ];
 const cancel = () => {
-  window.location("/viewStudent");
+  window.location("/viewTimetable"); //methan
 };
-function UpdateStudent() {
+function updateTimetable() {
   const history = useHistory();
   const { id } = useParams();
-  const [stuName, setStuName] = useState("");
-  const [nic, setNic] = useState("");
-  const [gender, setGender] = useState("");
-  const [address, setAddress] = useState("");
-  const [mobile, setMobile] = useState("");
-  const [email, setEmail] = useState("");
+  const [teacherName, setTeacherName] = useState("");
+  const [subject, setSubject] = useState("");
+  const [grade, setGrade] = useState("");
+  const [day, setDay] = useState("");
+  const [startTime, setStartTime] = useState("");
+  const [endTime, setendTime] = useState("");
 
   useEffect(() => {
-    studentService.getStudentById(id).then((res) => {
-      setStuName(res.data.stuName);
-      setNic(res.data.nic);
-      setGender(res.data.gender);
-      setAddress(res.data.address);
-      setMobile(res.data.mobile);
-      setEmail(res.data.email);
+    timetableService.getTimetableById(id).then((res) => {
+      console.log(res.data.teacherName);
+      setTeacherName(res.data.teacherName);
+      setSubject(res.data.subject);
+      setGrade(res.data.grade);
+      setDay(res.data.day);
+      setStartTime(res.data.startTime);
+      setendTime(res.data.endTime);
     });
-  });
+  }, []);
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      stuName: stuName,
-      nic: nic,
-      gender: gender,
-      address: address,
-      email: email,
-      mobile: mobile,
+      teacherName: teacherName,
+      subject: subject,
+      grade: grade,
+      day: day,
+      startTime: startTime,
+      endTime: endTime,
     },
 
     validationSchema: Yup.object({
-      stuName: Yup.string()
+      teacherName: Yup.string()
         .min(3, "Too Small")
         .max(30, "Input 30 characters or below")
         .matches(/^[A-Za-z ]*$/, "Please Enter Valid name")
         .required("*Required"),
-      nic: Yup.string().min(9).max(12).required("*Required"),
-      gender: Yup.string().required("*Required"),
 
-      address: Yup.string()
-        .min(10, "Input must be at least 10 characters")
-        .max(30, "Input 15 characters or below")
-        .required("*Required"),
-      email: Yup.string()
-        .matches(
-          /^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+\.)+[A-Za-z]+$/,
-          "Please Enter Valid email address"
-        )
-        .required("*Required"),
-      mobile: Yup.string()
-        .matches(
-          /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/,
-          "Phone number is not valid"
-        )
-        .min(9)
-        .max(10)
-        .required("*Required"),
+      subject: Yup.string().required("*Required"),
+      grade: Yup.string().required("*Required"),
+      day: Yup.string().required("*Required"),
+      startTime: Yup.string().required("*Required"),
+      endTime: Yup.string().required("*Required"),
     }),
 
     onSubmit: (values) => {
-      studentService.updateStudent(values, id).then((res) => {
-        history.push("/viewStudent");
+      console.log(values);
+      timetableService.updateTimetable(values, id).then((res) => {
+        history.push("/viewTimetable");
       });
     },
   });
@@ -87,114 +98,110 @@ function UpdateStudent() {
       <Navbar />
       <div>
         <Form id="student-form" onSubmit={formik.handleSubmit}>
-          <label id="student-form-label">Add Student</label>
+          <label id="student-form-label">Add Timetable</label>
           <Form.Field>
-            <label>Student Name</label>
+            <label>Teacher Name</label>
+
             <input
-              placeholder="Student Name"
-              id="stuName"
-              name="stuName"
+              placeholder="teacherName"
+              id="teacherName"
+              name="teacherName"
               type="text"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              value={formik.values.stuName}
+              value={formik.values.teacherName}
             />
-            {formik.touched.stuName && formik.errors.stuName ? (
-              <div style={{ color: "red" }}>{formik.errors.stuName}</div>
+            {formik.touched.teacherName && formik.errors.teacherName ? (
+              <div style={{ color: "red" }}>{formik.errors.teacherName}</div>
             ) : null}
           </Form.Field>
 
           <Form.Field>
-            <label>NIC</label>
-            <input
-              placeholder="NIC"
-              id="nic"
-              name="nic"
-              type="text"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.nic}
-            />
-            {formik.touched.nic && formik.errors.nic ? (
-              <div style={{ color: "red" }}>{formik.errors.nic}</div>
-            ) : null}
-          </Form.Field>
-          <Form.Field>
-            <label>Gender</label>
+            <label>Subject</label>
             <Dropdown
               selection
               options={options}
-              placeholder="Gender"
-              id="gender"
-              name="gender"
-              onChange={(_, { value }) => formik.setFieldValue("gender", value)}
-              value={formik.values.gender}
+              placeholder="Subject"
+              id="subject"
+              name="subject"
+              onChange={(_, { value }) =>
+                formik.setFieldValue("subject", value)
+              }
+              value={formik.values.subject}
             />
-            {formik.touched.gender && formik.errors.gender ? (
-              <div style={{ color: "red" }}>{formik.errors.gender}</div>
+            {formik.touched.subject && formik.errors.subject ? (
+              <div style={{ color: "red" }}>{formik.errors.subject}</div>
             ) : null}
           </Form.Field>
 
           <Form.Field>
-            <label>Address</label>
-            <input
-              placeholder="Address"
-              id="address"
-              name="address"
-              type="text"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.address}
+            <label>Grade</label>
+            <Dropdown
+              selection
+              options={options1}
+              placeholder="Grade"
+              id="grade"
+              name="grade"
+              onChange={(_, { value }) => formik.setFieldValue("grade", value)}
+              value={formik.values.grade}
             />
-            {formik.touched.address && formik.errors.address ? (
-              <div style={{ color: "red" }}>{formik.errors.address}</div>
+            {formik.touched.grade && formik.errors.grade ? (
+              <div style={{ color: "red" }}>{formik.errors.grade}</div>
             ) : null}
           </Form.Field>
+
           <Form.Field>
-            <label>Email</label>
-            <input
-              placeholder="Email"
-              id="email"
-              name="email"
-              type="text"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.email}
+            <label>Day</label>
+            <Dropdown
+              selection
+              options={options2}
+              placeholder="Day"
+              id="day"
+              name="day"
+              onChange={(_, { value }) => formik.setFieldValue("day", value)}
+              value={formik.values.day}
             />
-            {formik.touched.email && formik.errors.email ? (
-              <div style={{ color: "red" }}>{formik.errors.email}</div>
+            {formik.touched.day && formik.errors.day ? (
+              <div style={{ color: "red" }}>{formik.errors.day}</div>
             ) : null}
           </Form.Field>
+
           <Form.Field>
-            <label>Mobile</label>
+            <label>Start Time</label>
             <input
-              placeholder="Mobile"
-              id="mobile"
-              name="mobile"
-              type="text"
+              placeholder="Start Time"
+              id="startTime"
+              name="startTime"
+              type="time"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              value={formik.values.mobile}
+              value={formik.values.startTime}
             />
-            {formik.touched.mobile && formik.errors.mobile ? (
-              <div style={{ color: "red" }}>{formik.errors.mobile}</div>
+            {formik.touched.startTime && formik.errors.startTime ? (
+              <div style={{ color: "red" }}>{formik.errors.startTime}</div>
             ) : null}
           </Form.Field>
-          {/* <Form.Field>
-                <label>Grade</label>
-                <input placeholder='Grade'
-                type="text"
+
+          <Form.Field>
+            <label>End Time</label>
+            <input
+              placeholder="End Time"
+              id="endTime"
+              name="endTime"
+              type="time"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.endTime}
             />
-            </Form.Field> */}
+            {formik.touched.endTime && formik.errors.endTime ? (
+              <div style={{ color: "red" }}>{formik.errors.endTime}</div>
+            ) : null}
+          </Form.Field>
 
           <Button primary type="submit" size="small">
             Update
           </Button>
-          <Button
-            secondary
-            size="small"
-            onClick={() => history.push("/viewStudent")}
-          >
+          <Button secondary type="reset" size="small">
             Cancel
           </Button>
         </Form>
@@ -202,4 +209,4 @@ function UpdateStudent() {
     </>
   );
 }
-export default UpdateStudent;
+export default updateTimetable;

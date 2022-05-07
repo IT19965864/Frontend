@@ -13,6 +13,10 @@ class TimetableService {
     console.log(timetableId);
     return axios.get(TIMETABLE_API_BASE_URL + `/${timetableId}`);
   }
+  updateTimetable(value, timetableId) {
+    console.log(timetableId);
+    return axios.put(TIMETABLE_API_BASE_URL + `/${timetableId}`, value);
+  }
 }
 
 export default new TimetableService();

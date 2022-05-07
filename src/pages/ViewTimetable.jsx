@@ -16,6 +16,7 @@ class ViewTimetable extends Component {
     };
 
     this.viewSingleTimetable = this.viewSingleTimetable.bind(this);
+    this.Updatetimetable = this.Updatetimetable.bind(this);
   }
 
   componentDidMount() {
@@ -28,8 +29,13 @@ class ViewTimetable extends Component {
     this.setState({ searchId: event.target.value.substr(0, 20) });
   }
   viewSingleTimetable(id) {
-    // this.history.push(`/singleStudent/${id}`);
     window.location = `/singleViewTimetable/${id}`;
+  }
+  Updatetimetable(id) {
+    console.log(id);
+    window.location = `/updateTimetable/${id}`;
+    // this.props.history.push(`/updateTimetable/${id}`);
+    console.log(id);
   }
 
   render() {
@@ -91,7 +97,7 @@ class ViewTimetable extends Component {
                         secondary
                         type="update"
                         size="small"
-                        onClick={() => this.Updatestudent(student._id)}
+                        onClick={() => this.Updatetimetable(timetable._id)}
                       >
                         Update
                       </Button>
@@ -99,7 +105,7 @@ class ViewTimetable extends Component {
                         secondary
                         type="delete"
                         size="small"
-                        onClick={() => this.DeleteStudent(student._id)}
+                        onClick={() => this.DeleteStudent(timetable._id)}
                       >
                         Delete
                       </Button>
