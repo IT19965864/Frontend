@@ -11,7 +11,7 @@ class ViewTimetable extends Component {
     super(props);
 
     this.state = {
-      students: [],
+      timetable: [],
       searchId: "",
     };
 
@@ -21,7 +21,7 @@ class ViewTimetable extends Component {
 
   componentDidMount() {
     timetableService.getAllTimetable().then((res) => {
-      this.setState({ students: res.data });
+      this.setState({ timetable: res.data });
       console.log(res.data);
     });
   }
@@ -37,10 +37,20 @@ class ViewTimetable extends Component {
     // this.props.history.push(`/updateTimetable/${id}`);
     console.log(id);
   }
+  DeleteTimetable(id) {
+    timetableService.deleteTimetable(id).then((res) => {
+      this.setState({
+        timetable: this.state.timetable.filter(
+          (timetable) => timetable._id !== id
+        ),
+      });
+    });
+    console.log(id);
+  }
 
   render() {
-    let filterEmpId = this.state.students.filter((student) => {
-      return student.teacherName.indexOf(this.state.searchId) !== -1;
+    let filterEmpId = this.state.timetable.filter((timetable) => {
+      return timetable.teacherName.indexOf(this.state.searchId) !== -1;
     });
 
     return (
@@ -86,7 +96,7 @@ class ViewTimetable extends Component {
 
                     <Table.Cell>
                       <Button
-                        secondary
+                        color="blue"
                         type="viewmore"
                         size="small"
                         onClick={() => this.viewSingleTimetable(timetable._id)}
@@ -94,7 +104,7 @@ class ViewTimetable extends Component {
                         View More
                       </Button>
                       <Button
-                        secondary
+                        color="teal"
                         type="update"
                         size="small"
                         onClick={() => this.Updatetimetable(timetable._id)}
@@ -102,10 +112,10 @@ class ViewTimetable extends Component {
                         Update
                       </Button>
                       <Button
-                        secondary
+                        color="red"
                         type="delete"
                         size="small"
-                        onClick={() => this.DeleteStudent(timetable._id)}
+                        onClick={() => this.DeleteTimetable(timetable._id)}
                       >
                         Delete
                       </Button>
