@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import { useFormik } from "formik";
 import Navbar from "../components/StuMarksNavBar";
 import "../styles/studentmark.css";
 import { Button, Select, Form, Dropdown } from "semantic-ui-react";
 import * as Yup from "yup";
 import StudentMarkService from "../adapters/StudentMarkService";
-import SoloAlert from "soloalert";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const options1 = [
   { key: "b", text: "Biological Science", value: "Biological Science" },
@@ -15,12 +17,36 @@ const options2 = [
   { key: "1", text: "1", value: "1" },
   { key: "2", text: "2", value: "2" },
 ];
-function AddMarks() {
-  // let navigate = useNavigate();
 
-  const [disabled, setDisabled] = useState(false);
-  const [disabled1, setDisabled1] = useState(false);
+const cancel = () => {
+  window.location("/ViewMarks");
+};
+function UpdateMark() {
+  // const history = useHistory();
+  // const { id } = useParams();
+  // const [nicno, setNicno] = useState("");
+  // const [studName, setStudName] = useState("");
+  // const [stream, setStream] = useState("");
+  // const [term, setTerm] = useState("");
+  // const [chemMarks, setChemMarks] = useState("");
+  // const [physicsMarks, setPhysicsMarks] = useState("");
+  // const [bioMarks, setBioMarks] = useState("");
+  // const [mathsMarks, setMathsMarks] = useState("");
+
+  // useEffect(() => {
+  //   studentService.getStudentById(id).then((res) => {
+  //     setNicno(res.data.nicno);
+  //     setStudName(res.data.studName);
+  //     setStream(res.data.stream);
+  //     setTerm(res.data.term);
+  //     setChemMarks(res.data.chemMarks);
+  //     setPhysicsMarks(res.data.physicsMarks);
+  //     setBioMarks(res.data.bioMarks);
+  //     setMathsMarks(res.data.mathsMarks);
+  //   });
+  // });
   const formik = useFormik({
+    // enableReinitialize: true,
     initialValues: {
       nicno: "",
       studName: "",
@@ -30,6 +56,15 @@ function AddMarks() {
       physicsMarks: "",
       bioMarks: "",
       mathsMarks: "",
+
+      // nicno: nicno,
+      // studName: studName,
+      // stream: stream,
+      // term: term,
+      // chemMarks: chemMarks,
+      // physicsMarks: physicsMarks,
+      // bioMarks: bioMarks,
+      // mathsMarks: mathsMarks,
     },
 
     validationSchema: Yup.object({
@@ -66,33 +101,9 @@ function AddMarks() {
     }),
 
     onSubmit: (values) => {
-      StudentMarkService.insertMarks(values)
-        .then(() => {
-          SoloAlert.alert({
-            title: "Welcome!",
-            body: "Data added successfully",
-            icon: "success",
-            theme: "light",
-            useTransparency: true,
-            onOk: function () {
-              window.location = "/viewMarks";
-            },
-
-            //  axios.post("http://localhost:8070/mark/add",values);
-          });
-        })
-        .catch((error) => {
-          SoloAlert.alert({
-            title: "",
-            body: "The student NIC already exists!",
-            icon: "error",
-            theme: "red",
-            useTransparency: true,
-            onOk: function () {
-              window.location = "/AddMark";
-            },
-          });
-        });
+      StudentMarkService.UpdateMark(values, id).then((res) => {
+        history.push("/ViewMarks");
+      });
     },
   });
 
@@ -272,15 +283,18 @@ function AddMarks() {
           </div>
 
           <Button primary type="submit" size="small">
-            Submit
+            Update
           </Button>
-          <Button secondary type="reset" size="small">
-            Reset
+          <Button
+            secondary
+            size="small"
+            onClick={() => history.push("/ViewMarks")}
+          >
+            Cancel
           </Button>
         </Form>
       </div>
     </>
   );
 }
-
-export default AddMarks;
+export default UpdateMark;

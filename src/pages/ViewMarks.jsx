@@ -18,6 +18,7 @@ class ViewMarks extends Component {
 
     this.ViewSingleMark = this.ViewSingleMark.bind(this);
     this.GenerateReport = this.GenerateReport.bind(this);
+    this.UpdateMark = this.UpdateMark.bind(this);
   }
 
   componentDidMount() {
@@ -35,6 +36,10 @@ class ViewMarks extends Component {
   }
   GenerateReport() {
     this.props.history.push("/mark-report");
+  }
+  UpdateMark(id) {
+    this.props.history.push(`/UpdateMark/${id}`);
+    console.log(id);
   }
   render() {
     let filterEmpId = this.state.marks.filter((mark) => {
@@ -108,15 +113,15 @@ class ViewMarks extends Component {
                       >
                         View More
                       </Button>
-                      {/* <Link
-                        to="/ViewSingleMark"
-                        className="btn btn-primary"
-                        type="submit"
+                      <Button
+                        secondary
+                        type="update"
                         size="small"
-                        id="student-view-button"
+                        onClick={() => this.UpdateMark(mark._id)}
                       >
-                        View More
-                      </Link> */}
+                        Update
+                      </Button>
+                      {/* <Button secondary type='delete' size='small' onClick={()=>this.DeleteStudent(mark._id)}>Delete</Button> */}
                     </Table.Cell>
                   </Table.Row>
                 ))}
