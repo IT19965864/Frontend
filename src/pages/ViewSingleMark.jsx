@@ -1,4 +1,5 @@
 import "../styles/studentmark.css";
+import StudentMarkService from "../adapters/StudentMarkService";
 import Navbar from "../components/StuMarksNavBar";
 import { Button, Card, Form, Dropdown } from "semantic-ui-react";
 import { useNavigate } from "react-router-dom";
@@ -10,18 +11,19 @@ class ViewSingleMark extends Component {
 
     this.state = {
       id: this.props.match.params.id,
-      teacher: {},
+      mark: {},
     };
   }
 
   componentDidMount() {
     StudentMarkService.getStudentMarkById(this.state.id).then((res) => {
-      this.setState({ mark: res.data.user });
+      this.setState({ mark: res.data });
+      console.log(this.state.mark);
     });
   }
 
   cancel() {
-    this.props.history.push("/");
+    this.props.history.push("/viewMarks");
   }
 
   render() {
@@ -32,8 +34,7 @@ class ViewSingleMark extends Component {
           rel="stylesheet"
         />
         <div className="teacher-box-view box-size box-shadow">
-          <p className="teacher-heading">Student Marks Information</p>
-
+          <p className="mark-heading">Student Marks Information</p>
           <div className="teacher-box-view-text grid">
             <p>NIC</p>
             <p>{this.state.mark.nicno}</p>
@@ -51,7 +52,6 @@ class ViewSingleMark extends Component {
             <p>{this.state.mark.bioMarks}</p>
             <p>Maths Mark</p>
             <p>{this.state.mark.mathsMarks}</p>
-
             <div className="back-button">
               <Button
                 secondary
@@ -69,4 +69,4 @@ class ViewSingleMark extends Component {
   }
 }
 
-export default withRouter(ViewSingleMark);
+export default ViewSingleMark;

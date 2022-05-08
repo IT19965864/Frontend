@@ -4,6 +4,10 @@ import StudentMarkService from "../adapters/StudentMarkService";
 import Navbar from "../components/StuMarksNavBar";
 import { Table, Button, Icon, Search } from "semantic-ui-react";
 import "../styles/studentmark.css";
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
+import jspdf from "jspdf";
+import "jspdf-autotable";
 
 const colors = ["blue"];
 
@@ -17,6 +21,9 @@ class ViewMarks extends Component {
     };
 
     this.ViewSingleMark = this.ViewSingleMark.bind(this);
+    this.generatePDF = this.generatePDF.bind(this);
+    this.DeleteStudentMark = this.DeleteStudentMark.bind(this);
+    this.UpdateMark = this.UpdateMark.bind(this);
   }
 
   componentDidMount() {
@@ -31,8 +38,97 @@ class ViewMarks extends Component {
   ViewSingleMark(id) {
     this.props.history.push(`/ViewSingleMark/${id}`);
     console.log(id);
+  }
 
-    // this.props.navigation(`/singleStudent/${id}`);
+  UpdateMark(id) {
+    this.props.history.push(`/UpdateMark/${id}`);
+    console.log(id);
+  }
+  DeleteStudentMark(id) {
+    StudentMarkService.deleteStudentMark(id).then((res) => {
+      this.setState({
+        marks: this.state.marks.filter((mark) => mark._id !== id),
+      });
+    });
+    console.log(id);
+  }
+
+  onClickDeleteStudentMark(id) {
+    confirmAlert({
+      title: "Confirm to Delete",
+      message: "Are you sure to delete ?",
+      buttons: [
+        {
+          label: "Yes",
+          className: "button",
+          onClick: () => this.DeleteStudentMark(id),
+        },
+        {
+          label: "No",
+          onClick: () => this.props.history.push("/viewMarks"),
+        },
+      ],
+    });
+  }
+
+  onClickGeneratePDF(marks) {
+    confirmAlert({
+      title: "Confirm to generate ",
+      message: "Are you sure to generate student mark sheet?",
+      buttons: [
+        {
+          label: "Yes",
+          className: "button",
+          onClick: () => this.generatePDF(marks),
+        },
+        {
+          label: "No",
+          onClick: () => this.props.history.push("/viewMarks"),
+        },
+      ],
+    });
+  }
+
+  generatePDF(marks) {
+    console.log(marks);
+    const doc = new jspdf();
+    const tableColumn = [
+      "Student NIC",
+      "Student Name",
+      "Studnet Stream",
+      "Term",
+      "Chemistry Marks",
+      "Physics Marks",
+      "Biology Marks",
+      "Combined Mathematics Marks",
+    ];
+    const tableRows = [];
+
+    marks
+      .slice(0)
+      .reverse()
+      .map((mark) => {
+        const markData = [
+          mark.nicno,
+          mark.studName,
+          mark.stream,
+          mark.term,
+          mark.chemMarks,
+          mark.physicsMarks,
+          mark.bioMarks,
+          mark.mathsMarks,
+        ];
+        tableRows.push(markData);
+      });
+    doc.autoTable(tableColumn, tableRows, {
+      styles: { fontSize: 8 },
+      startY: 35,
+    });
+    const date = Date().split(" ");
+    const dateStr = date[1] + "-" + date[2] + "-" + date[3];
+    doc.text("Student Result Sheet", 14, 15).setFontSize(12);
+    doc.text(`Report Generated Date - ${dateStr} `, 14, 23);
+    doc.save(`Student-Mark-Details-Report_${dateStr}.pdf`);
   }
 
   render() {
@@ -49,13 +145,8 @@ class ViewMarks extends Component {
 
         <div id="student-mark-search">
           <Search
-            //loading={loading}
             placeholder="Search..."
-            // onResultSelect={(e, data) =>
-            //     dispatch({ type: 'UPDATE_SELECTION', selection: data.result.title })
-            // }
             onSearchChange={this.searchMenuId.bind(this)}
-            // results={results}
             value={this.state.searchId}
           />
         </div>
@@ -99,23 +190,31 @@ class ViewMarks extends Component {
                     <Table.Cell>{mark.bioMarks}</Table.Cell>
                     <Table.Cell>{mark.mathsMarks}</Table.Cell>
                     <Table.Cell>
-                      {/* <Button
+                      <Button
                         secondary
                         type="viewmore"
+                        color="blue"
                         size="small"
                         onClick={() => this.ViewSingleMark(mark._id)}
                       >
                         View More
-                      </Button> */}
-                      {/* <Link
-                        to="/ViewSingleMark"
-                        className="btn btn-primary"
-                        type="submit"
+                      </Button>
+                      <Button
+                        type="update"
+                        color="teal"
                         size="small"
-                        id="student-view-button"
+                        onClick={() => this.UpdateMark(mark._id)}
                       >
-                        View More
-                      </Link> */}
+                        Update
+                      </Button>
+                      <Button
+                        color="red"
+                        type="delete"
+                        size="small"
+                        onClick={() => this.onClickDeleteStudentMark(mark._id)}
+                      >
+                        Delete
+                      </Button>
                     </Table.Cell>
                   </Table.Row>
                 ))}
@@ -126,11 +225,13 @@ class ViewMarks extends Component {
                   <Table.HeaderCell colSpan="6">
                     <Button
                       id="mark-report-button"
+                      color="brown"
                       floated="right"
                       icon
-                      labelPosition="left"
-                      primary
-                      size="small"
+                      onClick={(e) => {
+                        this.onClickGeneratePDF(this.state.marks);
+                      }}
+                      type="submit"
                     >
                       <Icon name="file pdf" /> Generate Report
                     </Button>
