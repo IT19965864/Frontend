@@ -126,21 +126,7 @@ function UpdateStudent() {
                 <div style={{color: "red"}}>{formik.errors.nic}</div>
                 ) : null}
           </Form.Field>
-          <Form.Field>
-            <label>NIC</label>
-            <input
-              placeholder="NIC"
-              id="nic"
-              name="nic"
-              type="text"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.nic}
-            />
-            {formik.touched.nic && formik.errors.nic ? (
-              <div style={{ color: "red" }}>{formik.errors.nic}</div>
-            ) : null}
-          </Form.Field>
+         
           <Form.Field>
             <label>Gender</label>
             <Dropdown
