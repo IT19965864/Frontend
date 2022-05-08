@@ -19,7 +19,7 @@ class ViewMarks extends Component {
 
     this.ViewSingleMark = this.ViewSingleMark.bind(this);
     this.GenerateReport = this.GenerateReport.bind(this);
-    this.removeStudentMark = this.removeStudentMark.bind(this);
+    this.DeleteStudentMark = this.DeleteStudentMark.bind(this);
     this.UpdateMark = this.UpdateMark.bind(this);
   }
 
@@ -44,30 +44,18 @@ class ViewMarks extends Component {
     console.log(id);
   }
 
-  onClickDeleteStudentMark(id) {
-    confirmAlert({
-      title: "Confirm to Delete",
-      message: "Are you sure to delete ?",
-      buttons: [
-        {
-          label: "Yes",
-          className: "button",
-          onClick: () => this.removeStudentMark(id),
-        },
-        {
-          label: "No",
-          onClick: () => alert("Click No"),
-        },
-      ],
-    });
-  }
-  removeStudentMark(id) {
-    StudentMarkService.deleteStudentMark(id).then((res) => {
-      this.setState({
-        ...this.state,
-        marks: this.state.marks.filter((mark) => mark._id !== id),
+  DeleteStudentMark(id) {
+    var confirmtext;
+    if (window.confirm("Are You Sure You want to Delete!")) {
+      StudentMarkService.deleteStudentMark(id).then((res) => {
+        this.setState({
+          marks: this.state.marks.filter((mark) => mark._id !== id),
+        });
+        confirmtext = "You Succesfully deleted Rservation";
       });
-    });
+    } else {
+      confirmtext = "Try again";
+    }
   }
 
   render() {
@@ -150,14 +138,14 @@ class ViewMarks extends Component {
                       >
                         Update
                       </Button>
-                      {/* <Button
+                      <Button
                         color="red"
                         type="delete"
                         size="small"
-                        onClick={() => this.onClickDeleteStudentMark(mark._id)}
+                        onClick={() => this.DeleteStudentMark(mark._id)}
                       >
                         Delete
-                      </Button> */}
+                      </Button>
                     </Table.Cell>
                   </Table.Row>
                 ))}
