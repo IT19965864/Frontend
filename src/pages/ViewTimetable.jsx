@@ -42,13 +42,29 @@ class ViewTimetable extends Component {
     console.log(id);
   }
   DeleteTimetable(id) {
-    timetableService.deleteTimetable(id).then((res) => {
-      this.setState({
-        timetable: this.state.timetable.filter(
-          (timetable) => timetable._id !== id
-        ),
-      });
+    confirmAlert({
+      title: "Confirm to Delete",
+      message: "Are you sure to delete this teacher",
+      buttons: [
+        {
+          label: "Yes",
+          className: "button",
+          onClick: () =>
+            timetableService.deleteTimetable(id).then((res) => {
+              this.setState({
+                timetable: this.state.timetable.filter(
+                  (timetable) => timetable._id !== id
+                ),
+              });
+            }),
+        },
+        {
+          label: "No",
+          onClick: () => {},
+        },
+      ],
     });
+
     console.log(id);
   }
   generatePDF(timetable) {
