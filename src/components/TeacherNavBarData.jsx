@@ -6,7 +6,7 @@ import * as AiIcons from "react-icons/ai";
 export const SidebarData = [
   {
     title: "Admin Profile",
-    path: "/TeacherAdminprofile",
+    path: "/TeacherAdminProfile",
     icon: <ImIcons.ImProfile />,
     cName: "nav-text",
   },
@@ -18,7 +18,7 @@ export const SidebarData = [
   },
   {
     title: "Manage Teacher",
-    path: "/",
+    path: "/viewTeacher",
     icon: <MdIcons.MdOutlineManageAccounts />,
     cName: "nav-text",
   },
@@ -31,7 +31,7 @@ export const SidebarData = [
 
   {
     title: "Logout",
-    path: "/",
+    path: "/login",
     icon: <MdIcons.MdLogout />,
     cName: "nav-text",
   },

@@ -89,22 +89,10 @@ function AddTeacher() {
             },
           ],
         });
-        // SoloAlert.alert({
-        //   title: "Welcome!",
-        //   body: "Data added successfully",
-        //   icon: "success",
-        //   theme: "light",
-        //   useTransparency: true,
-        //   onOk: function () {
-        //     window.location = "/";
-        //   },
-        // });
+
         e.resetForm();
         console.log(values);
       });
-      //  axios.post("http://localhost:8070/student/add",values);
-      // e.resetForm();
-      // console.log(values);
     },
   });
 

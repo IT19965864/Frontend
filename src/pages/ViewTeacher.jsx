@@ -99,28 +99,10 @@ class ViewTeacher extends Component {
     doc.save(`Teacher-Details-Report_${dateStr}.pdf`);
   }
 
-  // removeTeacher(id) {
-  //   var txt;
-  //   if (window.confirm("Are You Sure You Want To Delete!")) {
-  //     teacherService.deleteTeacher(id).then((res) => {
-  //       this.setState({
-  //         ...this.state,
-  //         teachers: this.state.teachers.filter((teacher) => teacher._id !== id),
-  //       });
-  //     });
-  //     txt = "You Succesfully Deleted Teacher!";
-  //   } else {
-  //     txt = "You pressed Cancel Try Again!";
-  //   }
-
-  //   document.getElementById("demo").innerHTML = txt;
-  // }
-
   componentDidMount() {
     console.log("didmount");
     teacherService.getAllTeachers().then((res) => {
       this.setState({ ...this.state, teachers: res.data });
-      // console.log(teachers);
     });
   }
   searchTeacherId(event) {
@@ -158,11 +140,10 @@ class ViewTeacher extends Component {
               <Table.Header>
                 <Table.Row>
                   <Table.HeaderCell>Name</Table.HeaderCell>
-                  {/* <Table.HeaderCell>NIC</Table.HeaderCell> */}
+
                   <Table.HeaderCell>Gender</Table.HeaderCell>
                   <Table.HeaderCell>Birthday</Table.HeaderCell>
-                  {/* <Table.HeaderCell>Email</Table.HeaderCell> */}
-                  {/* <Table.HeaderCell>Contact</Table.HeaderCell> */}
+
                   <Table.HeaderCell>Subject</Table.HeaderCell>
                   <Table.HeaderCell>Grade</Table.HeaderCell>
                   <Table.HeaderCell colSpan="6" textAlign="center">
@@ -175,15 +156,14 @@ class ViewTeacher extends Component {
                 {filterTeacherSubject.map((teacher) => (
                   <Table.Row key={teacher._id}>
                     <Table.Cell>{teacher.teacherName}</Table.Cell>
-                    {/* <Table.Cell>{teacher.teacherNic}</Table.Cell> */}
+
                     <Table.Cell>{teacher.teacherGender}</Table.Cell>
                     <Table.Cell>
                       {new Date(teacher.teacherBirthDate).getFullYear()}/
                       {new Date(teacher.teacherBirthDate).getMonth()}/
                       {new Date(teacher.teacherBirthDate).getDay()}
                     </Table.Cell>
-                    {/* <Table.Cell>{teacher.teacherEmail}</Table.Cell> */}
-                    {/* <Table.Cell>{teacher.teacherMobile}</Table.Cell> */}
+
                     <Table.Cell>{teacher.teacherSubject}</Table.Cell>
                     <Table.Cell>{teacher.teacherGrade}</Table.Cell>
                     <Table.Cell>

@@ -31,7 +31,7 @@ class UpdateTeacher extends Component {
     super(props);
 
     this.state = {
-      // id: this.props.match.params.id,
+     
       id: this.props.match.params.id,
       teacherName: "",
       teacherNic: "",
@@ -44,7 +44,7 @@ class UpdateTeacher extends Component {
       teacherNameError: "",
       teacherNicError: "",
       teacherGenderError: "",
-      // teacherBirthDateError: "",
+     
       teacherEmailError: "",
       teacherMobileError: "",
       teacherSubjectError: "",
@@ -93,7 +93,7 @@ class UpdateTeacher extends Component {
         {
           label: "OK",
           onClick: () => {
-            this.props.history.push("/");
+            this.props.history.push("/viewTeacher");
           },
         },
       ],
@@ -101,11 +101,11 @@ class UpdateTeacher extends Component {
   }
 
   validateUpdateTeacherForm() {
-    // let menuItemTypeError="";
+    
     let teacherNameError = "";
     let teacherNicError = "";
     let teacherGenderError = "";
-    // let teacherBirthDateError = "";
+    
     let teacherEmailError = "";
     let teacherMobileError = "";
     let teacherSubjectError = "";
@@ -128,9 +128,7 @@ class UpdateTeacher extends Component {
     if (!this.state.teacherGender) {
       teacherGenderError = "Gender canot be null";
     }
-    // if (!this.state.teacherBirthDate) {
-    //   teacherBirthDateError = "Birthdate canot be null";
-    // }
+   
     if (
       this.state.teacherEmail === "" ||
       this.state.teacherEmail === null ||
@@ -160,7 +158,7 @@ class UpdateTeacher extends Component {
       teacherNameError ||
       teacherNicError ||
       teacherGenderError ||
-      // teacherBirthDateError ||
+     
       teacherEmailError ||
       teacherMobileError ||
       teacherSubjectError ||
@@ -170,7 +168,7 @@ class UpdateTeacher extends Component {
         teacherNameError,
         teacherNicError,
         teacherGenderError,
-        // teacherBirthDateError,
+       
         teacherEmailError,
         teacherMobileError,
         teacherSubjectError,
@@ -290,18 +288,7 @@ class UpdateTeacher extends Component {
                 />
               </Form.Field>
 
-              {/* <Form.Field>
-                <label>Birthday</label>
-                <input
-                  id="teacherBirthDate"
-                  name="teacherBirthDate"
-                  type="date"
-                  onChange={this.changeTeacherBirthDateHandler}
-                  value={this.state.teacherBirthDate}
-                  required
-                />
-              </Form.Field> */}
-
+             
               <Form.Field>
                 <label>Email</label>
                 <input
