@@ -8,6 +8,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import studentService from "../adapters/studentService";
 import { useHistory } from 'react-router-dom';
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
 const options = [
     { key: 'm', text: 'Male', value: 'male' },
     { key: 'f', text: 'Female', value: 'female' },
@@ -88,7 +90,17 @@ function UpdateStudent(){
 
         onSubmit:values=>{
             studentService.updateStudent(values,id).then(res=>{
-                history.push('/viewStudent');
+              confirmAlert({
+                title: "Successfully Updated!",
+                buttons: [
+                  {
+                    label: "OK",
+                    onClick: () => {
+                      history.push('/viewStudent');
+                    },
+                  },
+                ],
+              });
             });
         }
     })
@@ -208,7 +220,7 @@ function UpdateStudent(){
             </Form.Field> */}
             
             <Button primary type='submit' size='small'>Update</Button>
-            <Button secondary  size='small' onClick={() => history.push('/viewStudent')}>Cancel</Button>
+            <Button color="red"  size='small' onClick={() => history.push('/viewStudent')}>Cancel</Button>
             </Form>
         
             </div>
