@@ -13,7 +13,7 @@ const AddMark = lazy(() => import("../src/pages/AddMark"));
 const ViewMarks = lazy(() => import("../src/pages/ViewMarks"));
 const ViewSingleMark = lazy(() => import("../src/pages/ViewSingleMark"));
 const MarkReport = lazy(() => import("../src/pages/MarkReport"));
-const UpdateMarks = lazy(() => import("../src/pages/UpdateMarks"));
+const UpdateMarks = lazy(() => import("../src/pages/UpdateMark"));
 
 // const StuAdminProfile = lazy(() => import("../src/pages/StuAdminProfile"));
 const AddStudent = lazy(() => import("../src/pages/AddStudent"));

@@ -8,7 +8,6 @@ import StudentMarkService from "../adapters/StudentMarkService";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom";
-
 const options1 = [
   { key: "b", text: "Biological Science", value: "Biological Science" },
   { key: "m", text: "Combined Maths", value: "Combined Maths" },
@@ -21,7 +20,11 @@ const options2 = [
 const cancel = () => {
   window.location("/ViewMarks");
 };
+
 function UpdateMark() {
+  const [disabled, setDisabled] = useState(false);
+  const [disabled1, setDisabled1] = useState(false);
+
   const history = useHistory();
   const { id } = useParams();
   const [nicno, setNicno] = useState("");
@@ -48,15 +51,6 @@ function UpdateMark() {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      nicno: "",
-      studName: "",
-      stream: "",
-      term: "",
-      chemMarks: "",
-      physicsMarks: "",
-      bioMarks: "",
-      mathsMarks: "",
-
       nicno: nicno,
       studName: studName,
       stream: stream,
@@ -102,7 +96,7 @@ function UpdateMark() {
 
     onSubmit: (values) => {
       StudentMarkService.updateStudentMark(values, id).then((res) => {
-        history.push("viewmarks");
+        history.push("/viewMarks");
       });
     },
   });
@@ -125,9 +119,7 @@ function UpdateMark() {
               id="nicno"
               name="nicno"
               type="text"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.nicno}
+              disabled
             />
             {formik.touched.nicno && formik.errors.nicno ? (
               <div style={{ color: "red" }}>{formik.errors.nicno}</div>
@@ -282,7 +274,12 @@ function UpdateMark() {
             </Form.Field>
           </div>
 
-          <Button primary type="submit" size="small">
+          <Button
+            primary
+            type="submit"
+            size="small"
+            onClick={() => this.UpdateMarks()}
+          >
             Update
           </Button>
           <Button
