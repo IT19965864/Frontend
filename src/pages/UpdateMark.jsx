@@ -8,7 +8,8 @@ import StudentMarkService from "../adapters/StudentMarkService";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom";
-import SoloAlert from "soloalert";
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
 
 const options1 = [
   { key: "b", text: "Biological Science", value: "Biological Science" },
@@ -98,15 +99,16 @@ function UpdateMark() {
 
     onSubmit: (values) => {
       StudentMarkService.updateStudentMark(values, id).then((res) => {
-        SoloAlert.alert({
-          title: "",
-          body: "Updated successfully",
-          icon: "success",
-          theme: "light",
-          useTransparency: true,
-          onOk: function () {
-            window.location = "/viewMarks";
-          },
+        confirmAlert({
+          title: "Successfully Updated!",
+          buttons: [
+            {
+              label: "OK",
+              onClick: () => {
+                history.push("/viewMarks");
+              },
+            },
+          ],
 
           //  axios.post("http://localhost:8070/mark/add",values);
         });
