@@ -13,10 +13,7 @@
     "formik": "^2.2.9",
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.5.23",
-<<<<<<< HEAD
-=======
     "lodash": "^4.17.21",
->>>>>>> devBranch
     "react": "^17.0.2",
     "react-confirm-alert": "^2.8.0",
     "react-dom": "^17.0.2",
