@@ -16,6 +16,9 @@ class StudentMarkService {
   updateStudentMark(mark, id) {
     return axios.put(STUDENT_MARK_API_BASE_URL + "/update/" + id, mark);
   }
+  deleteStudentMark(id) {
+    return axios.delete(STUDENT_MARK_API_BASE_URL + `/delete/${id}`);
+  }
 }
 
 export default new StudentMarkService();

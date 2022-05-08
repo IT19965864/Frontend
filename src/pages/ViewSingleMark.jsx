@@ -34,7 +34,7 @@ class ViewSingleMark extends Component {
           rel="stylesheet"
         />
         <div className="teacher-box-view box-size box-shadow">
-          <p className="teacher-heading">Student Marks Information</p>
+          <p className="mark-heading">Student Marks Information</p>
           <div className="teacher-box-view-text grid">
             <p>NIC</p>
             <p>{this.state.mark.nicno}</p>

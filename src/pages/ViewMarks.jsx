@@ -4,6 +4,7 @@ import StudentMarkService from "../adapters/StudentMarkService";
 import Navbar from "../components/StuMarksNavBar";
 import { Table, Button, Icon, Search } from "semantic-ui-react";
 import "../styles/studentmark.css";
+import { confirmAlert } from "react-confirm-alert";
 
 const colors = ["blue"];
 
@@ -18,6 +19,7 @@ class ViewMarks extends Component {
 
     this.ViewSingleMark = this.ViewSingleMark.bind(this);
     this.GenerateReport = this.GenerateReport.bind(this);
+    this.removeStudentMark = this.removeStudentMark.bind(this);
     this.UpdateMark = this.UpdateMark.bind(this);
   }
 
@@ -41,6 +43,33 @@ class ViewMarks extends Component {
     this.props.history.push(`/UpdateMark/${id}`);
     console.log(id);
   }
+
+  onClickDeleteStudentMark(id) {
+    confirmAlert({
+      title: "Confirm to Delete",
+      message: "Are you sure to delete ?",
+      buttons: [
+        {
+          label: "Yes",
+          className: "button",
+          onClick: () => this.removeStudentMark(id),
+        },
+        {
+          label: "No",
+          onClick: () => alert("Click No"),
+        },
+      ],
+    });
+  }
+  removeStudentMark(id) {
+    StudentMarkService.deleteStudentMark(id).then((res) => {
+      this.setState({
+        ...this.state,
+        marks: this.state.marks.filter((mark) => mark._id !== id),
+      });
+    });
+  }
+
   render() {
     let filterEmpId = this.state.marks.filter((mark) => {
       return mark.stream.indexOf(this.state.searchId) !== -1;
@@ -121,7 +150,14 @@ class ViewMarks extends Component {
                       >
                         Update
                       </Button>
-                      {/* <Button secondary type='delete' size='small' onClick={()=>this.DeleteStudent(mark._id)}>Delete</Button> */}
+                      {/* <Button
+                        color="red"
+                        type="delete"
+                        size="small"
+                        onClick={() => this.onClickDeleteStudentMark(mark._id)}
+                      >
+                        Delete
+                      </Button> */}
                     </Table.Cell>
                   </Table.Row>
                 ))}
