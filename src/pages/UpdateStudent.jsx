@@ -7,7 +7,9 @@ import * as Yup from "yup";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import studentService from "../adapters/studentService";
-import { useHistory } from "react-router-dom";
+import { useHistory } from 'react-router-dom';
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
 const options = [
   { key: "m", text: "Male", value: "male" },
   { key: "f", text: "Female", value: "female" },
@@ -82,43 +84,49 @@ function UpdateStudent() {
     },
   });
 
-  return (
-    <>
-      <Navbar />
-      <div>
-        <Form id="student-form" onSubmit={formik.handleSubmit}>
-          <label id="student-form-label">Add Student</label>
-          <Form.Field>
-            <label>Student Name</label>
-            <input
-              placeholder="Student Name"
-              id="stuName"
-              name="stuName"
-              type="text"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.stuName}
-            />
-            {formik.touched.stuName && formik.errors.stuName ? (
-              <div style={{ color: "red" }}>{formik.errors.stuName}</div>
-            ) : null}
-          </Form.Field>
+    
 
-          <Form.Field>
-            <label>NIC</label>
-            <input
-              placeholder="NIC"
-              id="nic"
-              name="nic"
-              type="text"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.nic}
-            />
-            {formik.touched.nic && formik.errors.nic ? (
-              <div style={{ color: "red" }}>{formik.errors.nic}</div>
-            ) : null}
+    return(
+        <>
+            <Navbar/>
+            <div>
+        
+            <Form id='student-form' onSubmit={formik.handleSubmit}>
+            <label id ='student-form-label'>Add  Student</label>
+            <Form.Field>
+                <label>Student Name</label>
+                <input
+                placeholder='Student Name'
+                id='stuName'
+                name='stuName'
+                type="text"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.stuName}
+                />
+                {formik.touched.stuName && formik.errors.stuName ? (
+                <div style={{color: "red"}}>{formik.errors.stuName}</div>
+                ) : null}
+
+                
+            </Form.Field>
+            
+            <Form.Field>
+                <label>NIC</label>
+                <input placeholder='NIC' 
+                id='nic'
+                name='nic'
+                type="text"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.nic}
+            
+                />
+                {formik.touched.nic && formik.errors.nic ? (
+                <div style={{color: "red"}}>{formik.errors.nic}</div>
+                ) : null}
           </Form.Field>
+         
           <Form.Field>
             <label>Gender</label>
             <Dropdown
@@ -186,20 +194,18 @@ function UpdateStudent() {
                 type="text"
             />
             </Form.Field> */}
-
-          <Button primary type="submit" size="small">
-            Update
-          </Button>
-          <Button
-            secondary
-            size="small"
-            onClick={() => history.push("/viewStudent")}
-          >
-            Cancel
-          </Button>
-        </Form>
-      </div>
-    </>
-  );
+            
+            <Button primary type='submit' size='small'>Update</Button>
+            <Button color="red"  size='small' onClick={() => history.push('/viewStudent')}>Cancel</Button>
+            </Form>
+        
+            </div>
+        
+       
+        </>
+   
+    );
+  
+    
 }
 export default UpdateStudent;
