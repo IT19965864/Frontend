@@ -13,8 +13,8 @@ class StudentMarkService {
     return axios.get(STUDENT_MARK_API_BASE_URL + "/" + id);
   }
 
-  updateMarks(mark, id) {
-    return axios.put(TEACHER_API_BASE_URL + "/update/" + id, mark);
+  updateStudentMark(mark, id) {
+    return axios.put(STUDENT_MARK_API_BASE_URL + "/update/" + id, mark);
   }
 }
 

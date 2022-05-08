@@ -1,4 +1,4 @@
-import { useFormik } from "formik";
+// import { useFormik } from "formik";
 import Navbar from "../components/StuMarksNavBar";
 import "../styles/studentmark.css";
 import { Button, Select, Form, Dropdown } from "semantic-ui-react";
@@ -51,14 +51,14 @@ class UpdateMarks extends Component {
     this.changePhysicsMarksHandler = this.changePhysicsMarksHandler.bind(this);
     this.changeBioMarksHandler = this.changeBioMarksHandler.bind(this);
     this.changeMathsMarksHandler = this.changeMathsMarksHandler.bind(this);
-    this.updateMark = this.updateMark.bind(this);
+    this.UpdateMarks = this.UpdateMarks.bind(this);
     this.onSuccessUpdate = this.onSuccessUpdate.bind(this);
   }
 
   componentDidMount() {
     StudentMarkService.getStudentMarkById(this.state.id).then((res) => {
       console.log("mark");
-      let mark = res.data.user;
+      let mark = res.data;
       console.log(mark);
       this.setState({
         nicno: mark.nicno,
@@ -187,7 +187,7 @@ class UpdateMarks extends Component {
         mathsMarks: this.state.mathsMarks,
       };
       console.log("mark => " + JSON.stringify(mark));
-      StudentMarkService.updateMarks(mark, this.state.id).then((res) => {
+      StudentMarkService.updateStudentMark(mark, this.state.id).then((res) => {
         this.onSuccessUpdate();
       });
     }
@@ -236,7 +236,7 @@ class UpdateMarks extends Component {
         <div>
           <Form
             id="student-mark-form"
-            onSubmit={formik.handleSubmit}
+            // onSubmit={formik.handleSubmit}
             class="ui form"
           >
             <label id="student-mark-form-label">Add Student Mark</label>
@@ -248,13 +248,9 @@ class UpdateMarks extends Component {
                 id="nicno"
                 name="nicno"
                 type="text"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.nicno}
+                onChange={this.changeNicnoHandler}
+                value={this.state.nicno}
               />
-              {formik.touched.nicno && formik.errors.nicno ? (
-                <div style={{ color: "red" }}>{formik.errors.nicno}</div>
-              ) : null}
             </Form.Field>
             <Form.Field>
               <div class="required field">
@@ -264,13 +260,9 @@ class UpdateMarks extends Component {
                   id="studName"
                   name="studName"
                   type="text"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.studName}
+                  onChange={this.changeStudNameHandler}
+                  value={this.state.studName}
                 />
-                {formik.touched.studName && formik.errors.studName ? (
-                  <div style={{ color: "red" }}>{formik.errors.studName}</div>
-                ) : null}
               </div>
             </Form.Field>
 
@@ -284,21 +276,9 @@ class UpdateMarks extends Component {
                     placeholder="Stream"
                     id="stream"
                     name="stream"
-                    onChange={(_, { value }) => {
-                      formik.setFieldValue("stream", value);
-                      if (value === "Biological Science") {
-                        setDisabled(false);
-                        setDisabled1(true);
-                      } else {
-                        setDisabled(true);
-                        setDisabled1(false);
-                      }
-                    }}
-                    value={formik.values.stream}
+                    onChange=""
+                    value={this.state.stream}
                   />
-                  {formik.touched.stream && formik.errors.stream ? (
-                    <div style={{ color: "red" }}>{formik.errors.stream}</div>
-                  ) : null}
                 </div>
               </Form.Field>
 
@@ -311,14 +291,9 @@ class UpdateMarks extends Component {
                     placeholder="Term"
                     id="term"
                     name="term"
-                    onChange={(_, { value }) =>
-                      formik.setFieldValue("term", value)
-                    }
-                    value={formik.values.term}
+                    onChange=""
+                    value={this.state.term}
                   />
-                  {formik.touched.term && formik.errors.term ? (
-                    <div style={{ color: "red" }}>{formik.errors.term}</div>
-                  ) : null}
                 </div>
               </Form.Field>
             </div>
@@ -334,14 +309,10 @@ class UpdateMarks extends Component {
                   name="bioMarks"
                   type="text"
                   pattern="[0-9]*"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.bioMarks}
-                  disabled={disabled}
+                  onChange={this.changeBioMarksHandler}
+                  value={this.state.bioMarks}
+                  disabled
                 />
-                {formik.touched.chemMarks && formik.errors.bioMarks ? (
-                  <div style={{ color: "red" }}>{formik.errors.bioMarks}</div>
-                ) : null}
               </Form.Field>
 
               <Form.Field>
@@ -352,15 +323,10 @@ class UpdateMarks extends Component {
                   name="mathsMarks"
                   type="text"
                   pattern="[0-9]*"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.mathsMarks}
-                  disabled={disabled1}
+                  onChange={this.changeMathsMarksHandler}
+                  value={this.state.mathsMarks}
+                  disabled
                 />
-
-                {formik.touched.chemMarks && formik.errors.mathsMarks ? (
-                  <div style={{ color: "red" }}>{formik.errors.mathsMarks}</div>
-                ) : null}
               </Form.Field>
             </div>
             <div class="two fields">
@@ -373,15 +339,9 @@ class UpdateMarks extends Component {
                     name="chemMarks"
                     type="text"
                     pattern="[0-9]*"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.chemMarks}
+                    onChange={this.changeChemMarksHandler}
+                    value={this.state.chemMarks}
                   />
-                  {formik.touched.chemMarks && formik.errors.chemMarks ? (
-                    <div style={{ color: "red" }}>
-                      {formik.errors.chemMarks}
-                    </div>
-                  ) : null}
                 </div>
               </Form.Field>
 
@@ -394,20 +354,19 @@ class UpdateMarks extends Component {
                     name="physicsMarks"
                     type="text"
                     pattern="[0-9]*"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.physicsMarks}
+                    onChange={this.changePhysicsMarksHandler}
+                    value={this.state.physicsMarks}
                   />
-                  {formik.touched.chemMarks && formik.errors.physicsMarks ? (
-                    <div style={{ color: "red" }}>
-                      {formik.errors.physicsMarks}
-                    </div>
-                  ) : null}
                 </div>
               </Form.Field>
             </div>
 
-            <Button primary type="submit" size="small">
+            <Button
+              primary
+              type="submit"
+              size="small"
+              onClick={() => this.UpdateMarks()}
+            >
               Update
             </Button>
             <Button

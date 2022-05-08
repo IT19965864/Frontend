@@ -22,31 +22,31 @@ const cancel = () => {
   window.location("/ViewMarks");
 };
 function UpdateMark() {
-  // const history = useHistory();
-  // const { id } = useParams();
-  // const [nicno, setNicno] = useState("");
-  // const [studName, setStudName] = useState("");
-  // const [stream, setStream] = useState("");
-  // const [term, setTerm] = useState("");
-  // const [chemMarks, setChemMarks] = useState("");
-  // const [physicsMarks, setPhysicsMarks] = useState("");
-  // const [bioMarks, setBioMarks] = useState("");
-  // const [mathsMarks, setMathsMarks] = useState("");
+  const history = useHistory();
+  const { id } = useParams();
+  const [nicno, setNicno] = useState("");
+  const [studName, setStudName] = useState("");
+  const [stream, setStream] = useState("");
+  const [term, setTerm] = useState("");
+  const [chemMarks, setChemMarks] = useState("");
+  const [physicsMarks, setPhysicsMarks] = useState("");
+  const [bioMarks, setBioMarks] = useState("");
+  const [mathsMarks, setMathsMarks] = useState("");
 
-  // useEffect(() => {
-  //   studentService.getStudentById(id).then((res) => {
-  //     setNicno(res.data.nicno);
-  //     setStudName(res.data.studName);
-  //     setStream(res.data.stream);
-  //     setTerm(res.data.term);
-  //     setChemMarks(res.data.chemMarks);
-  //     setPhysicsMarks(res.data.physicsMarks);
-  //     setBioMarks(res.data.bioMarks);
-  //     setMathsMarks(res.data.mathsMarks);
-  //   });
-  // });
+  useEffect(() => {
+    StudentMarkService.getStudentMarkById(id).then((res) => {
+      setNicno(res.data.nicno);
+      setStudName(res.data.studName);
+      setStream(res.data.stream);
+      setTerm(res.data.term);
+      setChemMarks(res.data.chemMarks);
+      setPhysicsMarks(res.data.physicsMarks);
+      setBioMarks(res.data.bioMarks);
+      setMathsMarks(res.data.mathsMarks);
+    });
+  });
   const formik = useFormik({
-    // enableReinitialize: true,
+    enableReinitialize: true,
     initialValues: {
       nicno: "",
       studName: "",
@@ -57,14 +57,14 @@ function UpdateMark() {
       bioMarks: "",
       mathsMarks: "",
 
-      // nicno: nicno,
-      // studName: studName,
-      // stream: stream,
-      // term: term,
-      // chemMarks: chemMarks,
-      // physicsMarks: physicsMarks,
-      // bioMarks: bioMarks,
-      // mathsMarks: mathsMarks,
+      nicno: nicno,
+      studName: studName,
+      stream: stream,
+      term: term,
+      chemMarks: chemMarks,
+      physicsMarks: physicsMarks,
+      bioMarks: bioMarks,
+      mathsMarks: mathsMarks,
     },
 
     validationSchema: Yup.object({
@@ -101,8 +101,8 @@ function UpdateMark() {
     }),
 
     onSubmit: (values) => {
-      StudentMarkService.UpdateMark(values, id).then((res) => {
-        history.push("/ViewMarks");
+      StudentMarkService.updateStudentMark(values, id).then((res) => {
+        history.push("viewmarks");
       });
     },
   });
