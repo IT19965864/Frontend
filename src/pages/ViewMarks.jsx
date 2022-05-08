@@ -200,7 +200,6 @@ class ViewMarks extends Component {
                         View More
                       </Button>
                       <Button
-                        secondary
                         type="update"
                         color="teal"
                         size="small"
