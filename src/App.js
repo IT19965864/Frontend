@@ -36,6 +36,7 @@ const ViewTeacher = lazy(() => import("./pages/ViewTeacher"));
 const ViewSingleTeacher = lazy(() => import("./pages/ViewSingleTeacher"));
 const UpdateTeacher = lazy(() => import("./pages/UpdateTeacher"));
 const Home = lazy(() => import("./pages/Home"));
+const TeacherAdmin = lazy(() => import("./pages/TeacherAdminProfile"));
 
 const App = () => (
   <Router>
@@ -47,6 +48,7 @@ const App = () => (
         <Route path="/singleTeacher/:id" component={ViewSingleTeacher} />
         <Route path="/updateTeacher/:id" component={UpdateTeacher} />
         <Route exact path="/" component={Home} />
+        <Route path="/TeacherAdminProfile" component={TeacherAdmin} />
 
         <Route path="/viewTeacher" component={ViewTeacher} />
         <Route path="/stuAdminProfile" component={StuAdminProfile} />
