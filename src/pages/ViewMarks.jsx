@@ -109,7 +109,7 @@ class ViewMarks extends Component {
       .reverse()
       .map((mark) => {
         const markData = [
-          mark.nic,
+          mark.nicno,
           mark.studName,
           mark.stream,
           mark.term,

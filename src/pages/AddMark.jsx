@@ -6,6 +6,9 @@ import { Button, Select, Form, Dropdown } from "semantic-ui-react";
 import * as Yup from "yup";
 import StudentMarkService from "../adapters/StudentMarkService";
 import SoloAlert from "soloalert";
+import { confirmAlert } from "react-confirm-alert";
+import { useHistory } from "react-router-dom";
+import "react-confirm-alert/src/react-confirm-alert.css";
 
 const options1 = [
   { key: "b", text: "Biological Science", value: "Biological Science" },
@@ -17,7 +20,7 @@ const options2 = [
 ];
 function AddMarks() {
   // let navigate = useNavigate();
-
+  const history = useHistory();
   const [disabled, setDisabled] = useState(false);
   const [disabled1, setDisabled1] = useState(false);
   const formik = useFormik({
@@ -68,15 +71,16 @@ function AddMarks() {
     onSubmit: (values) => {
       StudentMarkService.insertMarks(values)
         .then(() => {
-          SoloAlert.alert({
-            title: "Welcome!",
-            body: "Data added successfully",
-            icon: "success",
-            theme: "light",
-            useTransparency: true,
-            onOk: function () {
-              window.location = "/viewMarks";
-            },
+          confirmAlert({
+            title: "Successfully Added!",
+            buttons: [
+              {
+                label: "OK",
+                onClick: () => {
+                  history.push("/viewMarks");
+                },
+              },
+            ],
 
             //  axios.post("http://localhost:8070/mark/add",values);
           });
@@ -108,19 +112,21 @@ function AddMarks() {
           <label id="student-mark-form-label">Add Student Mark</label>
           <h4 class="ui dividing header">Student Information</h4>
           <Form.Field>
-            <label>NIC</label>
-            <input
-              placeholder="NIC"
-              id="nicno"
-              name="nicno"
-              type="text"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.nicno}
-            />
-            {formik.touched.nicno && formik.errors.nicno ? (
-              <div style={{ color: "red" }}>{formik.errors.nicno}</div>
-            ) : null}
+            <div class="required field">
+              <label>NIC</label>
+              <input
+                placeholder="NIC"
+                id="nicno"
+                name="nicno"
+                type="text"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.nicno}
+              />
+              {formik.touched.nicno && formik.errors.nicno ? (
+                <div style={{ color: "red" }}>{formik.errors.nicno}</div>
+              ) : null}
+            </div>
           </Form.Field>
           <Form.Field>
             <div class="required field">
