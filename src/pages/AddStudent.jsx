@@ -11,6 +11,8 @@ import SoloAlert from "soloalert";
 //import { toast } from 'react-toastify';
 //import 'react-toastify/dist/ReactToastify.css'
 //toast.configure()
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
 const options = [
   { key: 'm', text: 'Male', value: 'male' },
   { key: 'f', text: 'Female', value: 'female' },
@@ -73,17 +75,16 @@ const history = useHistory();
     }),
       onSubmit:values=>{
        studentService.insertStudents(values).then(()=>{
-        SoloAlert.alert({
-          title: "Welcome!",
-          body: "Data added successfully",
-          icon: "success",
-          theme: "light",
-          useTransparency: true,
-          onOk: function () {
-           
-            history.push('/viewStudent')
-        },
-    
+        confirmAlert({
+          title: "Successfully Added!",
+          buttons: [
+            {
+              label: "OK",
+              onClick: () => {
+                history.push('/viewStudent');
+              },
+            },
+          ],
         });
         // notify(),
         
@@ -212,7 +213,7 @@ const history = useHistory();
           </Form.Field> */}
          
           <Button primary type='submit' size='small'>Submit</Button>
-          <Button secondary  size='small' onClick={() => history.push('/viewStudent')}>Cancel</Button>
+          <Button color="red"  size='small' onClick={() => history.push('/viewStudent')}>Cancel</Button>
         </Form>
       
         </div>

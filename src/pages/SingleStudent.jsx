@@ -18,12 +18,12 @@ class viewSingleStudnet extends Component {
   componentDidMount() {
     studentService.getStudentById(this.state.id).then((res) => {
       this.setState({ student: res.data });
-      console.log(res.data);
+      console.log(this.state.id);
     });
   }
 
-  cancel() {
-    this.props.history.push("/");
+  ok() {
+    this.props.history.push("/viewStudent");
   }
 
   render() {
@@ -34,10 +34,10 @@ class viewSingleStudnet extends Component {
           href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Rubik:ital,wght@0,400;0,500;0,600;1,400&display=swap"
           rel="stylesheet"
         />
-        <div className="teacher-box-view box-size box-shadow">
-          <p className="teacher-heading">Student Information</p>
+        <div className="student-box-view box-size box-shadow">
+          <p className="student-heading">Student Information</p>
 
-          <div className="teacher-box-view-text grid">
+          <div className="student-box-view-text grid">
             <p>Student Name</p>
             <p>{this.state.student.stuName}</p>
             <p>NIC</p>
@@ -46,12 +46,16 @@ class viewSingleStudnet extends Component {
             <p>{this.state.student.gender}</p>
             <p>Address</p>
             <p>{this.state.student.address}</p>
+            <p>Email</p>
+            <p>{this.state.student.email}</p>
+            <p>Contact Number</p>
+            <p>{this.state.student.mobile}</p>
             <div className="back-button">
               <Button
-                secondary
+                primary
                 type="viewmore"
                 size="small"
-                onClick={() => this.cancel()}
+                onClick={() => this.ok()}
               >
                 OK
               </Button>

@@ -65,3 +65,41 @@
     margin-top: 40px;
     margin-left: 130px;
 }
+
+
+/* // */
+.box-shadow {
+    box-shadow: 0 2.4rem 4.8rem rgba(0, 0, 0, 0.351);
+  }
+  .box-size {
+    border-radius: 1.1rem;
+    margin-top: 120px;
+    margin-left: 480px;
+    width: 400px;
+    height: 400px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .student-box-view-text {
+    padding: 48px;
+    align-items: center;
+  }
+  .student-heading {
+    display: inline-block;
+    padding-top: 12px;
+    padding-left: 44px;
+    align-items: center;
+    font-weight: 500;
+    font-size: large;
+    margin-left: 80px;
+  }
+  .back-button {
+    margin-left :110px; ;
+    margin-top: 36px;
+  }
+  #admincard{
+      margin-top: 100px;
+      margin-left: 450px;
+  }
