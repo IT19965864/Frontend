@@ -285,7 +285,11 @@ function AddMarks() {
           <Button primary type="submit" size="small">
             Submit
           </Button>
-          <Button color="red" size="small" onClick={() => history.push("/")}>
+          <Button
+            color="red"
+            size="small"
+            onClick={() => history.push("/viewmarks")}
+          >
             Cancel
           </Button>
         </Form>
