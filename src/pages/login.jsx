@@ -37,7 +37,7 @@ export default function login() {
             } else if (res.data.status.role === "studentAdministrator") {
               window.location = "/viewStudent";
             } else if (res.data.status.role === "resultsAdministrator") {
-              window.location = "/viewMarks";
+              window.location = "/stuMarkAdminprofile";
             }
           } else {
             SoloAlert.alert({

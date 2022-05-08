@@ -29,7 +29,7 @@ const AddStudent = lazy(() => import("./pages/AddStudent"));
 const SingleStudent = lazy(() => import("./pages/SingleStudent"));
 const ViewStudents = lazy(() => import("./pages/ViewStudents"));
 const UpdateStudent = lazy(() => import("./pages/UpdateStudent"));
-// const StuAdminProfile = lazy(() => import("./pages/StuAdminProfile"));
+const StuAdminProfile = lazy(() => import("./pages/StuAdminProfile"));
 // const AddStudent = lazy(() => import("./pages/AddStudent"));
 // const SingleStudent = lazy(() => import("./pages/SingleStudent"));
 // const ViewStudents = lazy(() => import("./pages/ViewStudents"));
