@@ -21,18 +21,10 @@ const StuMarkAdminProfile = lazy(() =>
 const AddMark = lazy(() => import("../src/pages/AddMark"));
 const ViewMarks = lazy(() => import("../src/pages/ViewMarks"));
 const ViewSingleMark = lazy(() => import("../src/pages/ViewSingleMark"));
-<<<<<<< HEAD
 const UpdateMarks = lazy(() => import("../src/pages/UpdateMark"));
 
 // const StuAdminProfile = lazy(() => import("../src/pages/StuAdminProfile"));
-const AddStudent = lazy(() => import("../src/pages/AddStudent"));
-const SingleStudent = lazy(() => import("../src/pages/SingleStudent"));
-const ViewStudents = lazy(() => import("../src/pages/ViewStudents"));
-const ViewTimetable = lazy(() => import("../src/pages/ViewTimetable"));
-const AddTimetabl = lazy(() => import("../src/pages/AddTimetable"));
-const SingleViewTimetable = lazy(() => import("../src/pages/singleView"));
-=======
-const StuAdminProfile = lazy(() => import("./pages/StuAdminProfile"));
+
 const AddStudent = lazy(() => import("./pages/AddStudent"));
 const SingleStudent = lazy(() => import("./pages/SingleStudent"));
 const ViewStudents = lazy(() => import("./pages/ViewStudents"));
@@ -48,7 +40,6 @@ const ViewSingleTeacher = lazy(() => import("./pages/ViewSingleTeacher"));
 const UpdateTeacher = lazy(() => import("./pages/UpdateTeacher"));
 const Home = lazy(() => import("./pages/Home"));
 const TeacherAdmin = lazy(() => import("./pages/TeacherAdminProfile"));
->>>>>>> devBranch
 
 const App = () => (
   <Router>
