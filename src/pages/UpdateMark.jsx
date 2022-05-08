@@ -8,6 +8,8 @@ import StudentMarkService from "../adapters/StudentMarkService";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import SoloAlert from "soloalert";
+
 const options1 = [
   { key: "b", text: "Biological Science", value: "Biological Science" },
   { key: "m", text: "Combined Maths", value: "Combined Maths" },
@@ -96,7 +98,18 @@ function UpdateMark() {
 
     onSubmit: (values) => {
       StudentMarkService.updateStudentMark(values, id).then((res) => {
-        history.push("/viewMarks");
+        SoloAlert.alert({
+          title: "",
+          body: "Updated successfully",
+          icon: "success",
+          theme: "light",
+          useTransparency: true,
+          onOk: function () {
+            window.location = "/viewMarks";
+          },
+
+          //  axios.post("http://localhost:8070/mark/add",values);
+        });
       });
     },
   });
@@ -110,7 +123,7 @@ function UpdateMark() {
           onSubmit={formik.handleSubmit}
           class="ui form"
         >
-          <label id="student-mark-form-label">Add Student Mark</label>
+          <label id="student-mark-form-label">Update Student Mark</label>
           <h4 class="ui dividing header">Student Information</h4>
           <Form.Field>
             <label>NIC</label>
@@ -120,6 +133,7 @@ function UpdateMark() {
               name="nicno"
               type="text"
               disabled
+              value={formik.values.nicno}
             />
             {formik.touched.nicno && formik.errors.nicno ? (
               <div style={{ color: "red" }}>{formik.errors.nicno}</div>
