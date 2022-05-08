@@ -92,6 +92,18 @@ function updateTimetable() {
       console.log(values);
       timetableService.updateTimetable(values, id).then((res) => {
         history.push("/viewTimetable");
+        confirmAlert({
+          title: "Successfully Updated!",
+          buttons: [
+            {
+              label: "OK",
+              onClick: () => {
+                // this.props.history.push("/");
+                window.location = "/viewTimetable";
+              },
+            },
+          ],
+        });
       });
     },
   });
