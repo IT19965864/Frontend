@@ -73,8 +73,8 @@ class ViewMarks extends Component {
 
   onClickGeneratePDF(marks) {
     confirmAlert({
-      title: "Confirm to generate",
-      message: "Are you sure to generate Student Marks Report",
+      title: "Confirm to generate ",
+      message: "Are you sure to generate student mark sheet?",
       buttons: [
         {
           label: "Yes",
@@ -126,7 +126,7 @@ class ViewMarks extends Component {
     });
     const date = Date().split(" ");
     const dateStr = date[1] + "-" + date[2] + "-" + date[3];
-    doc.text("Student-Marks_Report", 14, 15).setFontSize(12);
+    doc.text("Student Result Sheet", 14, 15).setFontSize(12);
     doc.text(`Report Generated Date - ${dateStr} `, 14, 23);
     doc.save(`Student-Mark-Details-Report_${dateStr}.pdf`);
   }
