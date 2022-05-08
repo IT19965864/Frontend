@@ -33,7 +33,7 @@ export default function login() {
             if (res.data.status.role === "timetableAdministrator") {
               window.location = "/addTimetable";
             } else if (res.data.status.role === "teacherAdministrator") {
-              window.location = "/viewTeacher";
+              window.location = "/TeacherAdminProfile";
             } else if (res.data.status.role === "studentAdministrator") {
               window.location = "/viewStudent";
             } else if (res.data.status.role === "resultsAdministrator") {
