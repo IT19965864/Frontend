@@ -9,8 +9,15 @@ class StudentMarkService {
   getAllMarks() {
     return axios.get(STUDENT_MARK_API_BASE_URL);
   }
-  getStudentMarkById(markId) {
-    return axios.get(STUDENT_MARK_API_BASE_URL + `/ ${markId} `);
+  getStudentMarkById(id) {
+    return axios.get(STUDENT_MARK_API_BASE_URL + "/" + id);
+  }
+
+  updateStudentMark(mark, id) {
+    return axios.put(STUDENT_MARK_API_BASE_URL + "/update/" + id, mark);
+  }
+  deleteStudentMark(id) {
+    return axios.delete(STUDENT_MARK_API_BASE_URL + `/delete/${id}`);
   }
 }
 

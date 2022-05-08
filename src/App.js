@@ -21,12 +21,15 @@ const StuMarkAdminProfile = lazy(() =>
 const AddMark = lazy(() => import("../src/pages/AddMark"));
 const ViewMarks = lazy(() => import("../src/pages/ViewMarks"));
 const ViewSingleMark = lazy(() => import("../src/pages/ViewSingleMark"));
-const StuAdminProfile = lazy(() => import("./pages/StuAdminProfile"));
+const UpdateMarks = lazy(() => import("../src/pages/UpdateMark"));
+
+// const StuAdminProfile = lazy(() => import("../src/pages/StuAdminProfile"));
+
 const AddStudent = lazy(() => import("./pages/AddStudent"));
 const SingleStudent = lazy(() => import("./pages/SingleStudent"));
 const ViewStudents = lazy(() => import("./pages/ViewStudents"));
 const UpdateStudent = lazy(() => import("./pages/UpdateStudent"));
-// const StuAdminProfile = lazy(() => import("./pages/StuAdminProfile"));
+const StuAdminProfile = lazy(() => import("./pages/StuAdminProfile"));
 // const AddStudent = lazy(() => import("./pages/AddStudent"));
 // const SingleStudent = lazy(() => import("./pages/SingleStudent"));
 // const ViewStudents = lazy(() => import("./pages/ViewStudents"));
@@ -61,7 +64,8 @@ const App = () => (
         <Route path="/addMark" component={AddMark} />
         <Route path="/viewMarks" component={ViewMarks} />
         <Route path="/ViewSingleMark/:id" component={ViewSingleMark} />
-
+        {/* <Route path="/mark-report" component={MarkReport} /> */}
+        <Route path="/UpdateMark/:id" component={UpdateMarks} />
         {/* student manager routes */}
         {/* <Route path="/stuAdminProfile" component={StuAdminProfile} />
         <Route path="/addStudent" component={AddStudent} />

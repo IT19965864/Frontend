@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import { useFormik } from "formik";
 import Navbar from "../components/StuMarksNavBar";
 import "../styles/studentmark.css";
 import { Button, Select, Form, Dropdown } from "semantic-ui-react";
 import * as Yup from "yup";
 import StudentMarkService from "../adapters/StudentMarkService";
-import SoloAlert from "soloalert";
-import { confirmAlert } from "react-confirm-alert";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 
 const options1 = [
@@ -20,24 +21,47 @@ const options2 = [
 ];
 
 const cancel = () => {
-  window.location("/AddMark");
+  window.location("/ViewMarks");
 };
 
-function AddMarks() {
-  // let navigate = useNavigate();
-  const history = useHistory();
+function UpdateMark() {
   const [disabled, setDisabled] = useState(false);
   const [disabled1, setDisabled1] = useState(false);
+
+  const history = useHistory();
+  const { id } = useParams();
+  const [nicno, setNicno] = useState("");
+  const [studName, setStudName] = useState("");
+  const [stream, setStream] = useState("");
+  const [term, setTerm] = useState("");
+  const [chemMarks, setChemMarks] = useState("");
+  const [physicsMarks, setPhysicsMarks] = useState("");
+  const [bioMarks, setBioMarks] = useState("");
+  const [mathsMarks, setMathsMarks] = useState("");
+
+  useEffect(() => {
+    StudentMarkService.getStudentMarkById(id).then((res) => {
+      setNicno(res.data.nicno);
+      setStudName(res.data.studName);
+      setStream(res.data.stream);
+      setTerm(res.data.term);
+      setChemMarks(res.data.chemMarks);
+      setPhysicsMarks(res.data.physicsMarks);
+      setBioMarks(res.data.bioMarks);
+      setMathsMarks(res.data.mathsMarks);
+    });
+  });
   const formik = useFormik({
+    enableReinitialize: true,
     initialValues: {
-      nicno: "",
-      studName: "",
-      stream: "",
-      term: "",
-      chemMarks: "",
-      physicsMarks: "",
-      bioMarks: "",
-      mathsMarks: "",
+      nicno: nicno,
+      studName: studName,
+      stream: stream,
+      term: term,
+      chemMarks: chemMarks,
+      physicsMarks: physicsMarks,
+      bioMarks: bioMarks,
+      mathsMarks: mathsMarks,
     },
 
     validationSchema: Yup.object({
@@ -74,34 +98,21 @@ function AddMarks() {
     }),
 
     onSubmit: (values) => {
-      StudentMarkService.insertMarks(values)
-        .then(() => {
-          confirmAlert({
-            title: "Successfully Added!",
-            buttons: [
-              {
-                label: "OK",
-                onClick: () => {
-                  history.push("/viewMarks");
-                },
+      StudentMarkService.updateStudentMark(values, id).then((res) => {
+        confirmAlert({
+          title: "Successfully Updated!",
+          buttons: [
+            {
+              label: "OK",
+              onClick: () => {
+                history.push("/viewMarks");
               },
-            ],
-
-            //  axios.post("http://localhost:8070/mark/add",values);
-          });
-        })
-        .catch((error) => {
-          SoloAlert.alert({
-            title: "",
-            body: "The student NIC already exists!",
-            icon: "error",
-            theme: "red",
-            useTransparency: true,
-            onOk: function () {
-              window.location = "/AddMark";
             },
-          });
+          ],
+
+          //  axios.post("http://localhost:8070/mark/add",values);
         });
+      });
     },
   });
 
@@ -114,24 +125,21 @@ function AddMarks() {
           onSubmit={formik.handleSubmit}
           class="ui form"
         >
-          <label id="student-mark-form-label">Add Student Mark</label>
+          <label id="student-mark-form-label">Update Student Mark</label>
           <h4 class="ui dividing header">Student Information</h4>
           <Form.Field>
-            <div class="required field">
-              <label>NIC</label>
-              <input
-                placeholder="NIC"
-                id="nicno"
-                name="nicno"
-                type="text"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.nicno}
-              />
-              {formik.touched.nicno && formik.errors.nicno ? (
-                <div style={{ color: "red" }}>{formik.errors.nicno}</div>
-              ) : null}
-            </div>
+            <label>NIC</label>
+            <input
+              placeholder="NIC"
+              id="nicno"
+              name="nicno"
+              type="text"
+              disabled
+              value={formik.values.nicno}
+            />
+            {formik.touched.nicno && formik.errors.nicno ? (
+              <div style={{ color: "red" }}>{formik.errors.nicno}</div>
+            ) : null}
           </Form.Field>
           <Form.Field>
             <div class="required field">
@@ -282,13 +290,18 @@ function AddMarks() {
             </Form.Field>
           </div>
 
-          <Button primary type="submit" size="small">
-            Submit
+          <Button
+            primary
+            type="submit"
+            size="small"
+            onClick={() => this.UpdateMarks()}
+          >
+            Update
           </Button>
           <Button
-            color="red"
+            secondary
             size="small"
-            onClick={() => history.push("/viewmarks")}
+            onClick={() => history.push("/ViewMarks")}
           >
             Cancel
           </Button>
@@ -297,5 +310,4 @@ function AddMarks() {
     </>
   );
 }
-
-export default AddMarks;
+export default UpdateMark;
