@@ -18,6 +18,11 @@ const options2 = [
   { key: "1", text: "1", value: "1" },
   { key: "2", text: "2", value: "2" },
 ];
+
+const cancel = () => {
+  window.location("/AddMark");
+};
+
 function AddMarks() {
   // let navigate = useNavigate();
   const history = useHistory();
@@ -280,8 +285,8 @@ function AddMarks() {
           <Button primary type="submit" size="small">
             Submit
           </Button>
-          <Button secondary type="reset" size="small">
-            Reset
+          <Button color="red" size="small" onClick={() => history.push("/")}>
+            Cancel
           </Button>
         </Form>
       </div>

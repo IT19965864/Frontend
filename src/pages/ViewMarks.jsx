@@ -193,6 +193,7 @@ class ViewMarks extends Component {
                       <Button
                         secondary
                         type="viewmore"
+                        color="blue"
                         size="small"
                         onClick={() => this.ViewSingleMark(mark._id)}
                       >
@@ -201,6 +202,7 @@ class ViewMarks extends Component {
                       <Button
                         secondary
                         type="update"
+                        color="teal"
                         size="small"
                         onClick={() => this.UpdateMark(mark._id)}
                       >
@@ -224,6 +226,7 @@ class ViewMarks extends Component {
                   <Table.HeaderCell colSpan="6">
                     <Button
                       id="mark-report-button"
+                      color="brown"
                       floated="right"
                       icon
                       onClick={(e) => {
