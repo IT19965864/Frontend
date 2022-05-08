@@ -5,6 +5,9 @@ import Navbar from "../components/StuMarksNavBar";
 import { Table, Button, Icon, Search } from "semantic-ui-react";
 import "../styles/studentmark.css";
 import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
+import jspdf from "jspdf";
+import "jspdf-autotable";
 
 const colors = ["blue"];
 
@@ -18,7 +21,8 @@ class ViewMarks extends Component {
     };
 
     this.ViewSingleMark = this.ViewSingleMark.bind(this);
-    this.GenerateReport = this.GenerateReport.bind(this);
+
+    this.generatePDF = this.generatePDF.bind(this);
     this.DeleteStudentMark = this.DeleteStudentMark.bind(this);
     this.UpdateMark = this.UpdateMark.bind(this);
   }
@@ -36,26 +40,96 @@ class ViewMarks extends Component {
     this.props.history.push(`/ViewSingleMark/${id}`);
     console.log(id);
   }
-  GenerateReport() {
-    this.props.history.push("/mark-report");
-  }
+
   UpdateMark(id) {
     this.props.history.push(`/UpdateMark/${id}`);
     console.log(id);
   }
-
   DeleteStudentMark(id) {
-    var confirmtext;
-    if (window.confirm("Are You Sure You want to Delete!")) {
-      StudentMarkService.deleteStudentMark(id).then((res) => {
-        this.setState({
-          marks: this.state.marks.filter((mark) => mark._id !== id),
-        });
-        confirmtext = "You Succesfully deleted Rservation";
+    StudentMarkService.deleteStudentMark(id).then((res) => {
+      this.setState({
+        marks: this.state.marks.filter((mark) => mark._id !== id),
       });
-    } else {
-      confirmtext = "Try again";
-    }
+    });
+    console.log(id);
+  }
+
+  onClickDeleteStudentMark(id) {
+    confirmAlert({
+      title: "Confirm to Delete",
+      message: "Are you sure to delete ?",
+      buttons: [
+        {
+          label: "Yes",
+          className: "button",
+          onClick: () => this.DeleteStudentMark(id),
+        },
+        {
+          label: "No",
+          onClick: () => this.props.history.push("/viewMarks"),
+        },
+      ],
+    });
+  }
+
+  onClickGeneratePDF(marks) {
+    confirmAlert({
+      title: "Confirm to generate",
+      message: "Are you sure to generate Student Marks Report",
+      buttons: [
+        {
+          label: "Yes",
+          className: "button",
+          onClick: () => this.generatePDF(marks),
+        },
+        {
+          label: "No",
+          onClick: () => this.props.history.push("/viewMarks"),
+        },
+      ],
+    });
+  }
+
+  generatePDF(marks) {
+    console.log(marks);
+    const doc = new jspdf();
+    const tableColumn = [
+      "Student NIC",
+      "Student Name",
+      "Studnet Stream",
+      "Term",
+      "Chemistry Marks",
+      "Physics Marks",
+      "Biology Marks",
+      "Combined Mathematics Marks",
+    ];
+    const tableRows = [];
+
+    marks
+      .slice(0)
+      .reverse()
+      .map((mark) => {
+        const markData = [
+          mark.nic,
+          mark.studName,
+          mark.stream,
+          mark.term,
+          mark.chemMarks,
+          mark.physicsMarks,
+          mark.bioMarks,
+          mark.mathsMarks,
+        ];
+        tableRows.push(markData);
+      });
+    doc.autoTable(tableColumn, tableRows, {
+      styles: { fontSize: 8 },
+      startY: 35,
+    });
+    const date = Date().split(" ");
+    const dateStr = date[1] + "-" + date[2] + "-" + date[3];
+    doc.text("Student-Marks_Report", 14, 15).setFontSize(12);
+    doc.text(`Report Generated Date - ${dateStr} `, 14, 23);
+    doc.save(`Student-Mark-Details-Report_${dateStr}.pdf`);
   }
 
   render() {
@@ -142,7 +216,7 @@ class ViewMarks extends Component {
                         color="red"
                         type="delete"
                         size="small"
-                        onClick={() => this.DeleteStudentMark(mark._id)}
+                        onClick={() => this.onClickDeleteStudentMark(mark._id)}
                       >
                         Delete
                       </Button>
@@ -158,10 +232,9 @@ class ViewMarks extends Component {
                       id="mark-report-button"
                       floated="right"
                       icon
-                      labelPosition="left"
-                      primary
-                      size="small"
-                      onClick={this.GenerateReport}
+                      onClick={(e) => {
+                        this.onClickGeneratePDF(this.state.marks);
+                      }}
                       type="submit"
                     >
                       <Icon name="file pdf" /> Generate Report
