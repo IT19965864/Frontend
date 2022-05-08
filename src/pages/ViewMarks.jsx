@@ -21,7 +21,6 @@ class ViewMarks extends Component {
     };
 
     this.ViewSingleMark = this.ViewSingleMark.bind(this);
-
     this.generatePDF = this.generatePDF.bind(this);
     this.DeleteStudentMark = this.DeleteStudentMark.bind(this);
     this.UpdateMark = this.UpdateMark.bind(this);
@@ -146,13 +145,8 @@ class ViewMarks extends Component {
 
         <div id="student-mark-search">
           <Search
-            //loading={loading}
             placeholder="Search..."
-            // onResultSelect={(e, data) =>
-            //     dispatch({ type: 'UPDATE_SELECTION', selection: data.result.title })
-            // }
             onSearchChange={this.searchMenuId.bind(this)}
-            // results={results}
             value={this.state.searchId}
           />
         </div>
