@@ -23,7 +23,7 @@ class ViewSingleMark extends Component {
   }
 
   cancel() {
-    this.props.history.push("/");
+    this.props.history.push("/viewMarks");
   }
 
   render() {
