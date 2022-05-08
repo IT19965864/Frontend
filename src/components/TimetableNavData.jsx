@@ -6,7 +6,7 @@ import * as AiIcons from "react-icons/ai";
 export const SidebarData = [
   {
     title: "Admin Profile",
-    path: "/stuAdminprofile",
+    path: "/timeTbaleAdminProfile",
     icon: <ImIcons.ImProfile />,
     cName: "nav-text",
   },

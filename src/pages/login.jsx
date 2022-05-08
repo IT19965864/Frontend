@@ -11,17 +11,17 @@ export default function login() {
   function addLogin() {
     try {
       if (!email || !password) {
-        confirmAlert({
-          title: "all feilds are required",
-          buttons: [
-            {
-              label: "OK",
-              onClick: () => {
-                window.location = "/";
-              },
-            },
-          ],
-        });
+        // confirmAlert({
+        //   title: "all feilds are required",
+        //   buttons: [
+        //     {
+        //       label: "OK",
+        //       onClick: () => {
+        //         window.location = "/";
+        //       },
+        //     },
+        //   ],
+        // });
       } else {
         const data = {
           email,
@@ -31,7 +31,7 @@ export default function login() {
           console.log(res.status);
           if (res.status === 200) {
             if (res.data.status.role === "timetableAdministrator") {
-              window.location = "/addTimetable";
+              window.location = "/timeTbaleAdminProfile";
             } else if (res.data.status.role === "teacherAdministrator") {
               window.location = "/TeacherAdminProfile";
             } else if (res.data.status.role === "studentAdministrator") {
@@ -88,7 +88,9 @@ export default function login() {
               />
             </div>
             <div className="login-button">
-              <button onClick={addLogin}>Login</button>
+              <button className="bttn" onClick={addLogin}>
+                Login
+              </button>
             </div>
 
             <p className="link">
