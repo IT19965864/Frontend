@@ -1,8 +1,8 @@
-import React,{ Component } from "react";
+import React, { Component } from "react";
 import studentService from "../adapters/studentService";
 import Navbar from "../components/StuNavBar";
-import { Table,Button,Icon ,Search} from 'semantic-ui-react'
-import '../styles/student.css';
+import { Table, Button, Icon, Search } from "semantic-ui-react";
+import "../styles/timetable.css";
 import { withRouter } from "react-router-dom";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
@@ -220,13 +220,10 @@ class ViewStudents extends Component{
                     </Table.Footer>
                     </Table>
                 ))}
-                </div>
-
-
-            </div>
-        )
-
-    }
-
+              
+        </div>
+      </div>
+    );
+  }
 }
-export  default withRouter(ViewStudents);
+export default withRouter(ViewStudents);

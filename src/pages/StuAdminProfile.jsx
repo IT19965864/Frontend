@@ -28,8 +28,6 @@ function StuAdminProfile(props) {
   </Card>
     </>
   );
-   
-  
 }
 
 export default StuAdminProfile
