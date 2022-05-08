@@ -206,7 +206,7 @@ class ViewStudents extends Component{
                             floated='right'
                             icon
                             labelPosition='left'
-                            primary
+                            color="brown"
                             size='small'
                             onClick={(e) => {
                                 this.onClickGeneratePDF(this.state.students);
