@@ -74,3 +74,7 @@ a {
 h1 {
   color: #15317e;
 }
+.bttn:active,
+.bttn:hover {
+  color: #1971c2;
+}
