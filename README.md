@@ -4,7 +4,7 @@ A web-based application for Online Platform for Sipsayura Institute was being de
 
 Technologies Used
 
-   ReactJS
-   Spring Boot
-   MongoDB
+   React Js, 
+   Node Js, 
+   MongoDB,
    Express
